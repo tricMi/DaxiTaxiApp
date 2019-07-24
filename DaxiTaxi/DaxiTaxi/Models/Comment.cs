@@ -21,9 +21,9 @@ namespace DaxiTaxi.Models
         [Display(Name = "User that left comment")]
         public User UserThatLeftComment { get; set; }
 
-        [Required]
-        [Display(Name = "Ride")]
-        public Ride RideCommented { get; set; }
+        //[Required]
+        //[Display(Name = "Ride")]
+        //public Ride RideCommented { get; set; }
 
         [Required]
         [Range(0, 5, ErrorMessage = "Rate must be between 0-5")]

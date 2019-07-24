@@ -12,10 +12,10 @@ namespace DaxiTaxi.Models
         public int Id { get; set; }
 
         [Required]
-        public decimal XCoordinate { get; set; }
+        public double XCoordinate { get; set; }
 
         [Required]
-        public decimal YCoordinate { get; set; }
+        public double YCoordinate { get; set; }
 
         [Required]
         public Address Address { get; set; }

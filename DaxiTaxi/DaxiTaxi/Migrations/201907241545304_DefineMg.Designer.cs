@@ -7,13 +7,13 @@ namespace DaxiTaxi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialMg : IMigrationMetadata
+    public sealed partial class DefineMg : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMg));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DefineMg));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907221207149_InitialMg"; }
+            get { return "201907241545304_DefineMg"; }
         }
         
         string IMigrationMetadata.Source

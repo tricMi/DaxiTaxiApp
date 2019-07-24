@@ -1,6 +1,5 @@
 DaxiTaxi/.vs/
 
-*/**/bin/Debug
-*/**/bin/Release
+*/**/bin/
 */**/obj/Debug
 */**/obj/Release
