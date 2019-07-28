@@ -1,0 +1,80 @@
+﻿@model DaxiTaxi.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="username"  placeholder="Username">          
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnLogin" value="Login" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#btnLogin").on("click", function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+
+                var data =
+                {
+                    "Username": username,
+                    "Password": password
+                }
+
+                alert("Username: " + username + password)
+                $.ajax({
+                    type: "POST",
+                    url: "https://localhost:44345/api/userapi/login",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    success: function (response) {
+                        alert("Success");
+                    },
+                    failure: function (response) {
+                        alert("Failure");
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                      alert("Error: "+ errorThrown + " , Please try again");   
+                    }
+
+                })
+            })
+        })
+    </script>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
