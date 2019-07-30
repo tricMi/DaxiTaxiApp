@@ -9,6 +9,7 @@ namespace DaxiTaxi.Models
 {
     public class Vehicle
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         [Column(Order = 0)]
         [Required]

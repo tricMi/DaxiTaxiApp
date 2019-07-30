@@ -38,7 +38,7 @@ namespace DaxiTaxi.Migrations
                 "dbo.Users",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Username = c.String(nullable: false, maxLength: 30, storeType: "nvarchar"),
                         Password = c.String(nullable: false, maxLength: 30, storeType: "nvarchar"),
                         Name = c.String(nullable: false, maxLength: 30, storeType: "nvarchar"),
@@ -46,6 +46,7 @@ namespace DaxiTaxi.Migrations
                         Gender = c.Int(nullable: false),
                         JMBG = c.String(nullable: false, maxLength: 13, storeType: "nvarchar"),
                         PhoneNumber = c.String(nullable: false, maxLength: 30, storeType: "nvarchar"),
+                        Email = c.String(nullable: false, unicode: false),
                         Role = c.Int(nullable: false),
                         Discriminator = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
                         Location_Id = c.Int(),
@@ -103,7 +104,7 @@ namespace DaxiTaxi.Migrations
                 "dbo.Vehicles",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         TaxiNumber = c.Int(nullable: false),
                         VehicleYear = c.Int(nullable: false),
                         RegistrationNumber = c.String(nullable: false, unicode: false),

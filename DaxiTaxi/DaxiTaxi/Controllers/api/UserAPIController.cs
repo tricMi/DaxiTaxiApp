@@ -45,6 +45,23 @@ namespace DaxiTaxi.Controllers.api
                 return NotFound();
         }
 
+        [HttpPost]
+        [Route("api/userapi/register")]
+        public Customer Register([FromBody]Customer customer)
+        {
+
+            if (customer == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            _taxiContext.Users.Add(customer);
+            _taxiContext.SaveChanges();
+
+            return customer;
+        }
+
+
         
     }
 }

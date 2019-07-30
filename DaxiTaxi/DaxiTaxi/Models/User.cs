@@ -9,6 +9,7 @@ namespace DaxiTaxi.Models
 {
     public class User
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         [Column(Order = 0)]
         [Required]
@@ -42,6 +43,10 @@ namespace DaxiTaxi.Models
         [Required]
         [StringLength(30, ErrorMessage = "This value can't contain more than 30 characters")]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         public ERole Role { get; set; }

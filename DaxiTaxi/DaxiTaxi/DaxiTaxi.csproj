@@ -168,24 +168,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907241545304_DefineMg.cs" />
-    <Compile Include="Migrations\201907241545304_DefineMg.Designer.cs">
-      <DependentUpon>201907241545304_DefineMg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241549324_Seed.cs" />
-    <Compile Include="Migrations\201907241549324_Seed.Designer.cs">
-      <DependentUpon>201907241549324_Seed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907241603312_SeedDataAgain.cs" />
-    <Compile Include="Migrations\201907241603312_SeedDataAgain.Designer.cs">
-      <DependentUpon>201907241603312_SeedDataAgain.cs</DependentUpon>
+    <Compile Include="Migrations\201907300713232_DefineMg.cs" />
+    <Compile Include="Migrations\201907300713232_DefineMg.Designer.cs">
+      <DependentUpon>201907300713232_DefineMg.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Data.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\EGender.cs" />
     <Compile Include="Models\ERideState.cs" />
@@ -196,6 +187,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RegisterView.cs" />
     <Compile Include="ViewModel\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +227,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -253,14 +246,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907241545304_DefineMg.resx">
-      <DependentUpon>201907241545304_DefineMg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241549324_Seed.resx">
-      <DependentUpon>201907241549324_Seed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907241603312_SeedDataAgain.resx">
-      <DependentUpon>201907241603312_SeedDataAgain.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907300713232_DefineMg.resx">
+      <DependentUpon>201907300713232_DefineMg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,7 +14,7 @@ namespace DaxiTaxi.Migrations
         }
 
         protected override void Seed(DaxiTaxi.Context.TaxiAppContext context)
-        {  
+        {
             var admin = new Admin()
             {
                 Id = 1,
@@ -25,6 +25,7 @@ namespace DaxiTaxi.Migrations
                 PhoneNumber = "+381643234345",
                 Gender = EGender.MALE,
                 Surname = "peric",
+                Email = "pera@gmail.com",
                 Role = ERole.ADMIN
             };
 
@@ -34,10 +35,11 @@ namespace DaxiTaxi.Migrations
                 Username = "sanja",
                 Name = "sanja",
                 Password = "sanja123",
-                JMBG = "1234567891234",
-                PhoneNumber = "+381643234345",
+                JMBG = "9293945583123",
+                PhoneNumber = "+381620023456",
                 Gender = EGender.FEMALE,
                 Surname = "savic",
+                Email = "sanja@gmail.com",
                 Role = ERole.CUSTOMER
             };
 
@@ -106,24 +108,26 @@ namespace DaxiTaxi.Migrations
                 Name = "Marko",
                 Surname = "Markovic",
                 Password = "batman",
-                JMBG = "1234567891234",
-                PhoneNumber = "+381643234345",
+                JMBG = "2345921394578",
+                PhoneNumber = "+381602394291",
                 Gender = EGender.MALE,
                 Role = ERole.DRIVER,
+                Email = "maki@gmail.com",
                 Location = driverLocation
             };
 
             var driver1 = new Driver()
             {
                 Id = 4,
-                Username = "mak",
-                Name = "Marko",
-                Surname = "Markovic",
-                Password = "batman",
-                JMBG = "1234567891234",
-                PhoneNumber = "+381643234345",
+                Username = "alex",
+                Name = "Aleksandar",
+                Surname = "Aleksic",
+                Password = "trotinet",
+                JMBG = "9394592345781",
+                PhoneNumber = "+381623457681",
                 Gender = EGender.MALE,
                 Role = ERole.DRIVER,
+                Email = "alex@gmail.com",
                 Location = driverLocation1
             };
 
@@ -171,7 +175,6 @@ namespace DaxiTaxi.Migrations
             context.Vehicles.AddOrUpdate(v => v.Id, vehicle1, vehicle2);
 
             context.Comments.AddOrUpdate(c => c.Id, comment);
-
         }
     }
 }

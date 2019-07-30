@@ -13,7 +13,7 @@ namespace DaxiTaxi.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201907241545304_DefineMg"; }
+            get { return "201907300713232_DefineMg"; }
         }
         
         string IMigrationMetadata.Source
