@@ -1,24 +1,23 @@
-﻿@model DaxiTaxi.Models.Customer
+﻿@model DaxiTaxi.Models.User
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "GetLoggedInUser";
 }
 
-<h2>Register</h2>
+<h2>GetLoggedInUser</h2>
 
-    @Html.AntiForgeryToken()
+
+@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>User</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-horizontal">
         <h4>Customer</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { id = "password", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "You need to provide password", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -76,20 +75,46 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnRegister" value="Create" class="btn btn-default" />
+                <input type="submit" id="btnChangeProfile" value="Change Profile" class="btn btn-default" />
             </div>
         </div>
     </div>
-
+</div>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            $("#btnRegister").on("click", function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "https://localhost:44345/api/userapi/loggedUser",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("Success");
+                        $("#username").val(response.Username);
+                        $("#name").val(response.Name);
+                        $("#surname").val(response.Name);
+                        $("#JMBG").val(response.JMBG);
+                        $("#phoneNum").val(response.PhoneNumber);
+                        $("#email").val(response.Email);
+                        $("#enumId").val(response.Gender);
+                    },
+                    failure: function (response) {
+                        alert("Failure");
+                    },
+                    error: function(response)
+                    {
+                        alert("Error: " + response.Email + " , Please try again");
+                    }
+
+                })
+        })
+
+        $(document).ready(function () {
+            $("#btnChangeProfile").on("click", function () {
 
                 var username = $("#username").val();
-                var password = $("#password").val();
                 var JMBG = $("#JMBG").val();
                 var phoneNum = $("#phoneNum").val();
                 var name = $("#name").val();
@@ -101,20 +126,18 @@
                 {
                     
                     "Username": username,
-                    "Password": password,
                     "JMBG": JMBG,
                     "PhoneNumber": phoneNum,
                     "Name": name,
                     "Surname": surname,
                     "Email": email,
                     "Gender": gender,
-                    "Role": 1
                 }
 
                 
                 $.ajax({
-                    type: "POST",
-                    url: "https://localhost:44345/api/userapi/register",
+                    type: "PUT",
+                    url: "https://localhost:44345/api/userapi/editProfile",
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
@@ -133,6 +156,7 @@
         })
     </script>
 }
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

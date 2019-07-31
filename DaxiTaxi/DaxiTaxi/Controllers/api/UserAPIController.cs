@@ -17,7 +17,7 @@ namespace DaxiTaxi.Controllers.api
 
         public UserAPIController()
         {
-            _taxiContext = new TaxiAppContext();   
+            _taxiContext = new TaxiAppContext();
         }
 
         [HttpGet]
@@ -26,7 +26,7 @@ namespace DaxiTaxi.Controllers.api
             return _taxiContext.Users.ToList();
         }
 
-       
+
         [AllowAnonymous]
         [Route("api/userapi/login")]
         [HttpPost]
@@ -61,7 +61,51 @@ namespace DaxiTaxi.Controllers.api
             return customer;
         }
 
+        [HttpGet]
+        [Route("api/userapi/loggedUser")]
+        public IHttpActionResult GetLoggedInUser()
+        {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var id = int.Parse(userId);
+            if (userUsername != null)
+            {
+                var currentUser = _taxiContext.Users.Find(id, userUsername);
+                return Ok(currentUser);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
-        
+        [HttpPut]
+        [Route("api/userapi/editProfile")]
+        public void ChangeProfile([FromBody]User user)
+        {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var id = int.Parse(userId);
+
+            var currentUser = _taxiContext.Users.Find(id, userUsername);
+
+            if (userUsername == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            currentUser.Username = user.Username;
+            currentUser.Name = user.Name;
+            currentUser.Surname = user.Surname;
+            currentUser.Gender = user.Gender;
+            currentUser.JMBG = user.JMBG;
+            currentUser.PhoneNumber = user.PhoneNumber;
+            currentUser.Email = user.Email;
+
+            _taxiContext.SaveChanges();
+
+        }
+
+
     }
 }

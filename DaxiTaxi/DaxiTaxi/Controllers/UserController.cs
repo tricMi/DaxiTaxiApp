@@ -26,5 +26,10 @@ namespace DaxiTaxi.Controllers
         {
             return View();
         }
+
+        public ActionResult GetLoggedInUser()
+        {
+            return View();
+        }
     }
 }
