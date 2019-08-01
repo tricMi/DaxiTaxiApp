@@ -1,0 +1,96 @@
+body {
+    
+    font-family: 'Poppins', sans-serif !important;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
+.backgroundImage {
+    background-image: url('../Images/kenny-luo-GIvpl2zapZk-unsplash.jpg');
+    background-repeat: no-repeat;
+    min-height: 550px;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    top: 50%;
+    left: 49.99%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+
+
+}
+
+ .backgroundImage span{
+    display: block;
+    color: white;
+}
+
+.text1 {
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    animation: text 3s 1;
+    margin-top: 120px;
+    margin-right: 900px;
+    font-weight: 900;
+}
+
+.text2 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-right: 900px;
+    
+}
+
+@keyframes text {
+    0% {
+        color: black;
+        margin-bottom: -50px;
+    }
+
+    30% {
+        letter-spacing: 25px;
+        margin-bottom: -40px;
+    }
+    85% {
+        letter-spacing: 8px;
+        margin-bottom: -20px;
+    }
+}
+
+h1 {
+    text-align: center;
+    margin-right:30px;
+}
+
+h1 span {
+    position: relative;
+    color: #202020;
+}
+
+h1 span:after {
+    position: absolute;
+    content: '';
+    width: 30%;
+    height: 1px;
+    border-bottom: 4px solid #c00c0c;
+    bottom: -2px;
+    left: 50%;
+    margin-left: -16.5%;
+    margin-top:40px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 1500px;
+    height: 2.5rem;  
+    clear: both;
+    float: none !important;
+  }

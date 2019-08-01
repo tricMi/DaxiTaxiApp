@@ -20,6 +20,11 @@ namespace DaxiTaxi.Controllers
             return View();
         }
 
+        public ActionResult Main()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
