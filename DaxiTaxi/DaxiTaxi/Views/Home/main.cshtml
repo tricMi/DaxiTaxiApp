@@ -7,80 +7,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/Scripts/jquery-3.3.1.js"> </script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel = "stylesheet" href ="~/Content/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/main.css">
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> 
-    <title>Document</title>
+    <title>DaxiTaxi</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #c00c0c;min-height:60px;">
-        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:10px;"  href="#">DaxiTaxi</a>
-        <div class="collapse navbar-collapse"  id="navbarNavDropdown" style="display:inline;margin-top:40px;">
-              <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:1000px;padding:20px;margin-bottom:40px;" href="#">Login<span class="sr-only"></span></a>         
-              <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;"  href="#">Register</a>
+
+        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:10px;" href="#">DaxiTaxi</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:40px;">
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:1000px;padding:20px;margin-bottom:40px;" href="~/User/Login" data-toggle="modal">Login<span class="sr-only"></span></a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;" href="#">Register</a>
         </div>
-      </nav>
-      <div class = "backgroundImage">
-        <span class="text1">DaxiTaxi</span>
-        <span class = "text2">Reliable Taxi Service</span>
-      </div>
-      
-      <div class="row" style="position: absolute;width:100%;margin-top:550px;color:black;padding-bottom:50px;background-color:white;">
-          <h1><span>DaxiTaxi Services</span></h1>
-          <h3 style="text-align:center">If you need a top quality Taxi give us a call, or make an online booking</h3>
-          <h3 style="text-align:center">We look forward to meeting you!</h3>
-          <div class="col-xs-4" style="float:left;width:30%;">
-              <div class="text-align" style="padding-left:80px; padding-right: 20px; margin-top: 40px;">
-                  <img style="margin-left:120px;" src="~/Images/icons8-user-60.png">
-                  <p style="font-weight:bold;margin-top: 5px;font-size: 18px;text-align:center;">Our Drivers</p>
-                  <p style="text-align:center;">We are renowned in Novi Sad for providing our customers with great value and being the most affordable taxi service around.  When you make an online booking you will know the price and we will also confirm it to you in an email.</p>
-              </div>
-          </div>
+    </nav>
+    <div class="backgroundImage">
+        <span class="text1">We Provide</span>
+        <span class="text2">Reliable Taxi Service</span>
+    </div>
 
-          <div class="col-xs-4" style="float:left;width:30%;">
-              <div class="text-align" style="padding-left:80px;margin-top: 40px;">
-                  <img style="margin-left:120px;" class="center-block" src="~/Images/icons8-get-a-discount-64.png">
-                  <p style="font-weight:bold;margin-top: 5px;font-size: 18px;text-align:center;">Affordable prices</p>
-                  <p style="text-align:center;">Our professional drivers are experienced, courteous, respectful and SAFE – our drivers have been checked, approved and licenced by Novi Sad District Council, we provide you safest rides.</p>
-              </div>
-          </div>
-          <div class="col-xs-4" style="padding-left:100px; float :left;width:30%;">
-              <div class="text-align" style="margin-top: 40px;">
-                  <img style="margin-left:170px;" src="~/Images/icons8-internet-60.png">
-                  <p style="font-weight:bold;margin-top: 5px;font-size: 18px;text-align:center;">Online booking</p>
-                  <p style="text-align:center;">
-                      As an alternative to telephone bookings, we offer you a fast and interactive online booking service. You will see the details of your journey and the price.  Everything is instant and automatic.
-                      Select ‘Book Now’ above and check it out!
-                  </p>
-              </div>
-          </div>
-
-      </div>
-        <div class="row" style="min-height:250px;position: absolute;width:2000px;margin-top:1100px;color:black;padding-bottom:50px;background-color:#202020;">
-              <div class="col-4"  style="float:left;width:30%;">
-                  <div class="text-center" style="padding-left:120px;margin-top: 40px;">
-                      <p style="font-weight:bold;margin-top: 5px;text-align:center; font-size: 18px;color: white;text-align: left;">About our philosophy</p>
-                      <p style="color: white;text-align: left;">We are well known in Novi Sad as a reliable and trusted Taxi service.  Our company has a very customer orientated philosophy.  We are polite and very adaptable to the needs of our customers. If you are travelling on business or pleasure or to and from an Airport – let us show you why we are DaxiTaxi’s premier Taxi service.</p>
-                  </div>
-              </div>
-              <div class="col-4"  style="padding-left:120px;float:left;width:30%;">
-                <div class="text-center" style="padding-left:160px;margin-top: 40px;">
-                    <p style="font-weight:bold;margin-top: 5px;font-size: 18px;color: white;">Contact</p>
-                    <p style="color: white;margin-top: 40px;">Phone: +381 6456789234</p>
-                    <p style="color: white;">Email: daxitaxi@gmail.com</p>
-               
-                </div>
-                </div>
-              <div class="col-4"  style="float:left;width:30%;">
-              
-              </div>
-          </div>
-         
-        <footer id="footer" style="background-color:#303030;">
-            <div class = "row">
-              <p class = "col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-right:120px;">&copy; 2019 DaxiTaxi</p>            
+    <div class="row" style="position: absolute;width:100%;margin-top:550px;color:black;padding-bottom:50px;background-color:white;">
+        <h1><span>DaxiTaxi Services</span></h1>
+        <h3 style="text-align:center">If you need a top quality Taxi give us a call, or make an online booking</h3>
+        <h3 style="text-align:center">We look forward to meeting you!</h3>
+        <div class="col-xs-4" style="float:left;width:30%;">
+            <div class="text-align" style="padding-left:80px; padding-right: 20px; margin-top: 40px;">
+                <img style="margin-left:120px;" src="~/Images/icons8-user-64.png">
+                <p style="font-weight:bold;margin-top: 5px;font-size: 18px;text-align:center;">Our Drivers</p>
+                <p style="text-align:center;">We are renowned in Novi Sad for providing our customers with great value and being the most affordable taxi service around.  When you make an online booking you will know the price and we will also confirm it to you in an email.</p>
             </div>
-        </footer>
+        </div>
+
+        <div class="col-xs-4" style="float:left;width:30%;">
+            <div class="text-align" style="padding-left:80px;margin-top: 40px;">
+                <img style="margin-left:120px;" class="center-block" src="~/Images/icons8-get-a-discount-64.png">
+                <p style="font-weight:bold;margin-top: 5px;font-size: 18px;text-align:center;">Affordable prices</p>
+                <p style="text-align:center;">Our professional drivers are experienced, courteous, respectful and SAFE – our drivers have been checked, approved and licenced by Novi Sad District Council, we provide you safest rides.</p>
+            </div>
+        </div>
+        <div class="col-xs-4" style="padding-left:100px; float :left;width:30%;">
+            <div class="text-align" style="margin-top: 40px;">
+                <img style="margin-left:170px;" src="~/Images/icons8-internet-60.png">
+                <p style="font-weight:bold;margin-top: 5px;font-size: 18px;text-align:center;">Online booking</p>
+                <p style="text-align:center;">
+                    As an alternative to telephone bookings, we offer you a fast and interactive online booking service. You will see the details of your journey and the price.  Everything is instant and automatic.
+                    Select ‘Book Now’ above and check it out!
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" style="min-height:250px;position: absolute;width:2000px;margin-top:1100px;color:black;padding-bottom:50px;background-color:#202020;">
+        <div class="col-4" style="float:left;width:30%;">
+            <div class="text-center" style="padding-left:120px;margin-top: 40px;">
+                <p style="font-weight:bold;margin-top: 5px;text-align:center; font-size: 18px;color: white;text-align: left;">About our philosophy</p>
+                <p style="color: white;text-align: left;">We are well known in Novi Sad as a reliable and trusted Taxi service.  Our company has a very customer orientated philosophy.  We are polite and very adaptable to the needs of our customers. If you are travelling on business or pleasure or to and from an Airport – let us show you why we are DaxiTaxi’s premier Taxi service.</p>
+            </div>
+        </div>
+        <div class="col-4" style="padding-left:120px;float:left;width:30%;">
+            <div class="text-center" style="padding-left:160px;margin-top: 40px;">
+                <p style="font-weight:bold;margin-top: 5px;font-size: 18px;color: white;">Contact</p>
+                <p style="color: white;margin-top: 40px;">Phone: +381 6456789234</p>
+                <p style="color: white;">Email: daxitaxi@gmail.com</p>
+
+            </div>
+        </div>
+        <div class="col-4" style="float:left;width:30%;">
+
+        </div>
+    </div>
+
+    
+
+    <div class="text-center">
+        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+            Launch
+            Modal Login Form
+        </a>
+    </div>
+
+    <footer id="footer" style="background-color:#303030;">
+        <div class="row">
+            <p class="col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-right:120px;">&copy; 2019 DaxiTaxi</p>
+        </div>
+    </footer>
+
+
 </body>
 </html>

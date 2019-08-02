@@ -34,7 +34,7 @@ namespace DaxiTaxi.Controllers.api
         {
             var loggedInUser = _taxiContext.Users.SingleOrDefault(u => u.Username == data.Username && u.Password == data.Password);
 
-            if (loggedInUser != null)
+            if (loggedInUser != null && ModelState.IsValid)
             {
                 var session = HttpContext.Current.Session;
                 session["UserId"] = loggedInUser.Id.ToString();

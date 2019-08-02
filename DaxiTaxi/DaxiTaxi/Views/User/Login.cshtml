@@ -1,45 +1,83 @@
-﻿@model DaxiTaxi.Models.User
+﻿@{ 
+    Layout = null;
+}
+@model DaxiTaxi.Models.User
 
 @{
     ViewBag.Title = "Login";
 }
-
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/login.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title>DaxiTaxi</title>
+</head>
+<body>
 
     @Html.AntiForgeryToken()
+    <nav class="navbar navbar-expand-lg" style="background-color: #c00c0c;min-height:60px;">
 
-    <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="password" class="form-control" id="password" placeholder="Password">
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
+        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:10px;" href="#">DaxiTaxi</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:40px;">
+           
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" class="form-control" id="username"  placeholder="Username">          
-                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </nav>
+    <div class="backgroundImage">
+    </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnLogin" value="Login" class="btn btn-default" />
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document" style=" width: 400px;">
+            <div class="modal-content" style="border-radius:10px !important;">
+                <div class="modal-header text-center" style="color:#990000;border-bottom:none;height:100px;padding:16px 16px;">
+                    <h4 class="modal-title font-weight-bold" style="margin-top:20px;font-size:22px;text-transform:uppercase;font-weight:bold;">Login</h4>
+                    <button type="button" style="padding-bottom:80px;float:right;"  class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="modal-body" style="color:#990000;height:200px;">
+                    <div class="md-form">
+                        <i style="float:left;padding-top:16px;padding-left:13px;font-size:20px;text-align:center;" class="fas fa-envelope prefix grey-text"></i>
+                        <input type="text" id="username" class="form-control validate" placeholder="Username" style="width:300px;margin-left:45px;margin-top:10px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="md-form">
+                        <i style="float:left;padding-top:16px;padding-left:13px;font-size:20px;" class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" style="margin-top:40px; width:300px;margin-left:45px; border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" class="form-control validate">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center" style="color:#990000;border-top:none;height:80px;">
+                    <button class="btn btn-default" id="btnLogin" style="margin-top:unset 10px; border-radius: 0 !important;margin-right:80px;width:200px;color:white;background-color:#990000;border:none;height:40px;border-bottom:20px;">LOGIN</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <footer id="footer" style="background-color:#303030;">
+        <div class="row">
+            <p class="col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-right:50px;">&copy; 2019 DaxiTaxi</p>
+        </div>
+    </footer>
 
-@section scripts
-{
     <script>
+          $(window).on('load',function(){
+             $('#modalLoginForm').modal('show');
+          });
+
         $(document).ready(function () {
             $("#btnLogin").on("click", function () {
                 var username = $("#username").val();
@@ -64,17 +102,14 @@
                     failure: function (response) {
                         alert("Failure");
                     },
-                    error: function(jqXHR, textStatus, errorThrown)
-                    {
-                      alert("Error: "+ errorThrown + " , Please try again");   
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error: " + errorThrown + " , Please try again");
                     }
 
                 })
             })
         })
     </script>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</body>
+</html>

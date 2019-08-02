@@ -1,90 +1,115 @@
-﻿@model DaxiTaxi.Models.Customer
+﻿@{ 
+    Layout = null;
+}
+@model DaxiTaxi.Models.Customer
 
 @{
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/login.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title>DaxiTaxi</title>
+</head>
+<body>
 
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Customer</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { id = "password", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "You need to provide password", new { @class = "text-danger" })
-            </div>
-        </div>
+    <nav class="navbar navbar-expand-lg" style="background-color: #c00c0c;min-height:60px;">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { id = "username", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:10px;" href="#">DaxiTaxi</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:40px;">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { id = "name", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
         </div>
+    </nav>
+    <div class="backgroundImage">
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.JMBG, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JMBG, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document" style=" width: 400px;">
+            <div class="modal-content" style="border-radius:10px !important;">
+                <div class="modal-header text-center" style="color:#990000;border-bottom:none;height:60px;padding:16px 16px;">
+                    <h4 class="modal-title font-weight-bold" style="margin-top:20px;font-size:22px;text-transform:uppercase;font-weight:bold;">Register</h4>
+                    <button type="button" style="padding-bottom:80px;float:right;" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="modal-body" style="color:#990000;height:450px;">
+                    <div class="md-form">
+                        <input type="text" id="username" class="form-control validate" placeholder="Username" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="md-form">
+                        <input type="text" id="name" class="form-control validate" placeholder="Name" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { id = "email", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="md-form">      
+                        <input type="text" id="surname" class="form-control validate" placeholder="Surname" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Gender)
-            @Html.EnumDropDownListFor(model => model.Gender, new { id = "enumId" })
-            @Html.ValidationMessageFor(m => m.Gender)
-        </div>
+                    <div class="md-form">
+                        <input type="text" id="email" class="form-control validate" placeholder="Email" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnRegister" value="Create" class="btn btn-default" />
+                    <div class="md-form">
+                        <input type="password" id="password" placeholder="Password" style=" width:300px;margin-left:35px;margin-top:15px; border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" class="form-control validate">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="md-form">
+                        <input type="text" id="phoneNum" class="form-control validate" placeholder="Phone Number" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="md-form">
+                        <input type="text" id="JMBG" class="form-control validate" placeholder="JMBG" style="margin-bottom:10px;width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
+                        @Html.ValidationMessageFor(model => model.JMBG, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="md-form">
+                        @Html.LabelFor(model => model.Gender, new { id = "enumLab", style="margin-left:35px;margin-top:10px;" })
+                        @Html.EnumDropDownListFor(model => model.Gender, new { id = "enumId" })
+                        @Html.ValidationMessageFor(m => m.Gender)
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center" style="color:#990000;border-top:none;height:80px;">
+                    <button class="btn btn-default" id="btnRegister" style="margin-top:unset 10px; border-radius: 0 !important;margin-right:80px;width:200px;color:white;background-color:#990000;border:none;height:40px;border-bottom:20px;">REGISTER</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <footer id="footer" style="background-color:#303030;">
+        <div class="row">
+            <p class="col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-right:50px;">&copy; 2019 DaxiTaxi</p>
+        </div>
+    </footer>
 
-@section scripts
-{
+    {
     <script>
+         $(window).on('load',function(){
+             $('#modalLoginForm').modal('show');
+         });
+
         $(document).ready(function () {
             $("#btnRegister").on("click", function () {
 
@@ -95,11 +120,11 @@
                 var name = $("#name").val();
                 var surname = $("#surname").val();
                 var email = $("#email").val();
-                var gender =  $("#enumId").val();
+                var gender = $("#enumId").val();
 
                 var data =
                 {
-                    
+
                     "Username": username,
                     "Password": password,
                     "JMBG": JMBG,
@@ -111,7 +136,7 @@
                     "Role": 1
                 }
 
-                
+
                 $.ajax({
                     type: "POST",
                     url: "https://localhost:44345/api/userapi/register",
@@ -123,8 +148,7 @@
                     failure: function (response) {
                         alert("Failure");
                     },
-                    error: function(response)
-                    {
+                    error: function (response) {
                         alert("Error: " + response.Email + " , Please try again");
                     }
 
@@ -132,8 +156,7 @@
             })
         })
     </script>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+</body>
+</html>

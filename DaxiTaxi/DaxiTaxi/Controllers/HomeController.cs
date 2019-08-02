@@ -31,5 +31,10 @@ namespace DaxiTaxi.Controllers
 
             return View();
         }
+
+        public ActionResult Modal()
+        {
+            return View();
+        }
     }
 }
