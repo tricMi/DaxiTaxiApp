@@ -107,5 +107,41 @@ namespace DaxiTaxi.Controllers.api
         }
 
 
+        [HttpPost]
+        [Route("api/userapi/addDrivers")]
+        public Driver AddDrivers([FromBody]Driver driver)
+        {
+
+            if (driver == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var id = int.Parse(driver.Location.Id.ToString());
+            var id2 = int.Parse(driver.Vehicle.Id.ToString());
+
+            Location location = _taxiContext.Locations.SingleOrDefault(l => l.Id == id);
+            Vehicle vehicle = _taxiContext.Vehicles.SingleOrDefault(l => l.Id == id2);
+
+            var newDriver = new Driver();
+            newDriver.Name = driver.Name;
+            newDriver.Surname = driver.Surname;
+            newDriver.Email = driver.Email;
+            newDriver.Username = driver.Username;
+            newDriver.Password = driver.Password;
+            newDriver.PhoneNumber = driver.PhoneNumber;
+            newDriver.JMBG = driver.Name;
+            newDriver.Gender = driver.Gender;
+            newDriver.Role = driver.Role;
+            newDriver.Location = location;
+            newDriver.Vehicle = vehicle;
+
+            _taxiContext.Users.Add(newDriver);
+            _taxiContext.SaveChanges();
+
+            return driver;
+        }
+
+
     }
 }

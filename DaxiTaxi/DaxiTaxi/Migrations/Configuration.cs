@@ -101,6 +101,29 @@ namespace DaxiTaxi.Migrations
             Location driverLocation = context.Locations.Single(x => x.Id == 1);
             Location driverLocation1 = context.Locations.Single(x => x.Id == 2);
 
+            var vehicle1 = new Vehicle()
+            {
+                Id = 1,
+                //Driver = vehicleDriver1,
+                RegistrationNumber = "NS-235-234",
+                TaxiNumber = 23,
+                VehicleType = EVehicleType.PassengerVehicle,
+                VehicleYear = 2014
+            };
+
+            var vehicle2 = new Vehicle()
+            {
+                Id = 2,
+                //Driver = vehicleDriver2,
+                RegistrationNumber = "LO-134-234",
+                TaxiNumber = 45,
+                VehicleType = EVehicleType.Van,
+                VehicleYear = 2016
+            };
+
+            Vehicle vehicleDriver = context.Vehicles.SingleOrDefault(v => v.Id == 1);
+            Vehicle vehicleDriver2 = context.Vehicles.SingleOrDefault(v => v.Id == 2);
+
             var driver = new Driver()
             {
                 Id = 2,
@@ -113,7 +136,8 @@ namespace DaxiTaxi.Migrations
                 Gender = EGender.MALE,
                 Role = ERole.DRIVER,
                 Email = "maki@gmail.com",
-                Location = driverLocation
+                Location = driverLocation,
+                Vehicle = vehicleDriver2
             };
 
             var driver1 = new Driver()
@@ -128,31 +152,16 @@ namespace DaxiTaxi.Migrations
                 Gender = EGender.MALE,
                 Role = ERole.DRIVER,
                 Email = "alex@gmail.com",
-                Location = driverLocation1
+                Location = driverLocation1,
+                Vehicle = vehicleDriver
             };
 
-            Driver vehicleDriver1 = (Driver)context.Users.Single(x => x.Id == 2);
-            Driver vehicleDriver2 = (Driver)context.Users.Single(x => x.Id == 4);
+            
 
-            var vehicle1 = new Vehicle()
-            {
-                Id = 1,
-                Driver = vehicleDriver1,
-                RegistrationNumber = "NS-235-234",
-                TaxiNumber = 23,
-                VehicleType = EVehicleType.PassengerVehicle,
-                VehicleYear = 2014
-            };
+            //Driver vehicleDriver1 = (Driver)context.Users.Single(x => x.Id == 2);
+            //Driver vehicleDriver2 = (Driver)context.Users.Single(x => x.Id == 4);
 
-            var vehicle2 = new Vehicle()
-            {
-                Id = 2,
-                Driver = vehicleDriver2,
-                RegistrationNumber = "LO-134-234",
-                TaxiNumber = 45,
-                VehicleType = EVehicleType.Van,
-                VehicleYear = 2016
-            };
+            
 
             Customer commentCustomer = (Customer)context.Users.Single(x => x.Id == 3);
 

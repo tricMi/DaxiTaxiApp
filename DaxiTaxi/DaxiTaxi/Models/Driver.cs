@@ -12,6 +12,6 @@ namespace DaxiTaxi.Models
         public Location Location { get; set; }
 
         //[Required]
-        //public Vehicle Vehicle { get; set; }
+        public Vehicle Vehicle { get; set; }
     }
 }
