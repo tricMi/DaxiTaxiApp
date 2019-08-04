@@ -1,0 +1,83 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+    body:before {
+        content: '';
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background-image: url('../../Images/kenny-luo-GIvpl2zapZk-unsplash.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        -webkit-filter: blur(6px);
+        -moz-filter: blur(6px);
+        -ms-filter: blur(6px);
+        filter: blur(6px);
+    }
+
+.contact-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    height: 560px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    background: rgba(168, 166, 166, 0.575);
+}
+
+.avatar {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    top: calc(-80px/2);
+    left: calc(50% - 40px);
+}
+
+.contact-form h4 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.contact-form p {
+    margin:0px;
+    padding: 0px;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+.contact-form input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+    .contact-form input[type="text"],
+    .contact-form input[type="password"] {
+        border: none;
+        border-bottom: 1px solid red;
+        background: transparent;
+        outline: none;
+        height: 40px;
+        color: red;
+        font-size: 16px;
+    }
+
+
+.contact-form a {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+

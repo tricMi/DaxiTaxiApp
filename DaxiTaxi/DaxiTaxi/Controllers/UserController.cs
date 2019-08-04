@@ -34,11 +34,6 @@ namespace DaxiTaxi.Controllers
             return View();
         }
 
-        public ActionResult GetLoggedInUser()
-        {
-            return View();
-        }
-
         public ActionResult AddDrivers()
         {
             var locations = _taxiContext.Locations.ToList();
@@ -49,6 +44,11 @@ namespace DaxiTaxi.Controllers
                 Vehicle = vehicles
             };
             return View("AddDrivers", newModel);
+        }
+
+        public new ActionResult Profile()
+        {
+            return View();
         }
     }
 }

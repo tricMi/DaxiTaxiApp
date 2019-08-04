@@ -101,6 +101,7 @@ namespace DaxiTaxi.Controllers.api
             currentUser.JMBG = user.JMBG;
             currentUser.PhoneNumber = user.PhoneNumber;
             currentUser.Email = user.Email;
+            currentUser.Password = user.Password;
 
             _taxiContext.SaveChanges();
 
