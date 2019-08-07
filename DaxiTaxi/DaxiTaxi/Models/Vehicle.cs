@@ -15,9 +15,6 @@ namespace DaxiTaxi.Models
         [Required]
         public int Id { get; set; }
 
-        //[Required]
-        //public Driver Driver { get; set; }
-
         [Required]
         [Display(Name = "Vehicle Year")]
         public int VehicleYear { get; set; }

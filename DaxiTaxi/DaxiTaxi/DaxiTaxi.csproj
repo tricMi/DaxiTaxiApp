@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -146,11 +149,14 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MappingEntities.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\TaxiAppContext.cs" />
+    <Compile Include="Controllers\api\RideAPIController.cs" />
     <Compile Include="Controllers\api\UserAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RideController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DTOs\AddressDTO.cs" />
     <Compile Include="DTOs\AdminDTO.cs" />
@@ -183,6 +189,22 @@
     <Compile Include="Migrations\201908031158278_UpdateUsersAgain.cs" />
     <Compile Include="Migrations\201908031158278_UpdateUsersAgain.Designer.cs">
       <DependentUpon>201908031158278_UpdateUsersAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908051615049_Change.cs" />
+    <Compile Include="Migrations\201908051615049_Change.Designer.cs">
+      <DependentUpon>201908051615049_Change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908052052572_AddRides.cs" />
+    <Compile Include="Migrations\201908052052572_AddRides.Designer.cs">
+      <DependentUpon>201908052052572_AddRides.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908070843483_ChangeRideData.cs" />
+    <Compile Include="Migrations\201908070843483_ChangeRideData.Designer.cs">
+      <DependentUpon>201908070843483_ChangeRideData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071302007_AddMoreCustomerRides.cs" />
+    <Compile Include="Migrations\201908071302007_AddMoreCustomerRides.Designer.cs">
+      <DependentUpon>201908071302007_AddMoreCustomerRides.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -258,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Ride\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -284,6 +307,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908031158278_UpdateUsersAgain.resx">
       <DependentUpon>201908031158278_UpdateUsersAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908051615049_Change.resx">
+      <DependentUpon>201908051615049_Change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908052052572_AddRides.resx">
+      <DependentUpon>201908052052572_AddRides.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908070843483_ChangeRideData.resx">
+      <DependentUpon>201908070843483_ChangeRideData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071302007_AddMoreCustomerRides.resx">
+      <DependentUpon>201908071302007_AddMoreCustomerRides.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

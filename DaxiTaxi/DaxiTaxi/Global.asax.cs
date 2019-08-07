@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using DaxiTaxi.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,6 +23,7 @@ namespace DaxiTaxi
        
         protected void Application_Start()
         {
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -5,7 +5,10 @@ using System.Web;
 
 namespace DaxiTaxi.DTOs
 {
-    public class ERoleDTO
+    public enum ERoleDTO
     {
+        ADMIN,
+        CUSTOMER,
+        DRIVER
     }
 }

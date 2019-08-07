@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DaxiTaxi.DTOs
 {
-    public class CustomerDTO
+    public class CustomerDTO : UserDTO
     {
     }
 }

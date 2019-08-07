@@ -27,6 +27,8 @@ namespace DaxiTaxi.Controllers.api
         }
 
 
+        /* ---- Method for user login ---- */
+
         [AllowAnonymous]
         [Route("api/userapi/login")]
         [HttpPost]
@@ -45,6 +47,8 @@ namespace DaxiTaxi.Controllers.api
                 return NotFound();
         }
 
+        /* ---- Register new customers ---- */
+
         [HttpPost]
         [Route("api/userapi/register")]
         public Customer Register([FromBody]Customer customer)
@@ -60,6 +64,8 @@ namespace DaxiTaxi.Controllers.api
 
             return customer;
         }
+
+        /* ---- Get current logged in user ---- */
 
         [HttpGet]
         [Route("api/userapi/loggedUser")]
@@ -78,6 +84,8 @@ namespace DaxiTaxi.Controllers.api
                 return NotFound();
             }
         }
+
+        /* ---- Method for changing user profile ---- */
 
         [HttpPut]
         [Route("api/userapi/editProfile")]
@@ -107,6 +115,7 @@ namespace DaxiTaxi.Controllers.api
 
         }
 
+        /* ---- Method for adding new drivers ---- */
 
         [HttpPost]
         [Route("api/userapi/addDrivers")]

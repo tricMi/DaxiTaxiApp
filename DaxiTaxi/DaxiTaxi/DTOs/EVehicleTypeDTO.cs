@@ -7,5 +7,8 @@ namespace DaxiTaxi.DTOs
 {
     public enum EVehicleTypeDTO
     {
+        Empty,
+        PassengerVehicle,
+        Van
     }
 }

@@ -7,5 +7,8 @@ namespace DaxiTaxi.DTOs
 {
     public class DriverDTO
     {
+        public LocationDTO Location { get; set; }
+
+        public VehicleDTO Vehicle { get; set; }
     }
 }

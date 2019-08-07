@@ -7,5 +7,7 @@ namespace DaxiTaxi.DTOs
 {
     public enum EGenderDTO
     {
+        MALE,
+        FEMALE
     }
 }

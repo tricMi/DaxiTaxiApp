@@ -17,7 +17,6 @@ namespace DaxiTaxi.Models
         [Required]
         public Location CustomerLocation { get; set; }
 
-        [Required]
         public Customer Customer { get; set; }
 
         public Location Destination { get; set; }

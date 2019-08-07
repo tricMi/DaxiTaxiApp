@@ -8,10 +8,9 @@ namespace DaxiTaxi.Models
 {
     public class Driver : User
     {
-       // [Required]
+
         public Location Location { get; set; }
 
-        //[Required]
         public Vehicle Vehicle { get; set; }
     }
 }

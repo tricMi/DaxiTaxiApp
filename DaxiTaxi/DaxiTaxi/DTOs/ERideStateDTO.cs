@@ -7,5 +7,12 @@ namespace DaxiTaxi.DTOs
 {
     public enum ERideStateDTO
     {
+        Created,
+        Formed,
+        Processed,
+        Accepted,
+        Canceled,
+        Successful,
+        Unsuccessful
     }
 }
