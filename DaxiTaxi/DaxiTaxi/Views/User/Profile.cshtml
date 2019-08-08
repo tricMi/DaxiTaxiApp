@@ -81,12 +81,15 @@
                     $("#email").val(response.Email);
                     $("#enumId").val(response.Gender);
                     $("#password").val(response.Password);
+                    console.log(response.Password)
                 },
                 failure: function (response) {
-                    alert("Failure");
+                    console.log("Failure");
                 },
                 error: function (response) {
-                    alert("Error: " + response.Email + " , Please try again");
+                    alert("Error")
+                    window.location.href = "~/Home/Main"
+                    console.log("Error: " + " , Please try again");
                 }
 
             })

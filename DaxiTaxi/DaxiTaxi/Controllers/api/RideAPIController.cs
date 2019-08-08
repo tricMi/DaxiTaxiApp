@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace DaxiTaxi.Controllers.api
 {
@@ -65,12 +66,14 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            var rides = _taxiContext.Rides.Where(r => r.Customer.Id == id).ToList();
+            var rides = _taxiContext.Rides.Include("CustomerLocation").Include("CustomerLocation.Address").
+                Include("Driver").Include("Dispatcher").Include("Comment").Include("Destination")
+                .Where(r => r.Customer.Id == id).ToList();
 
             return rides;
         }
 
-        /* ---- Get all rides with state Cretaed - On hold ---- */
+        /* ---- Get all rides with state Created - On hold ---- */
 
         [HttpGet]
         [Route("api/rideapi/getAllCreatedRides")]
