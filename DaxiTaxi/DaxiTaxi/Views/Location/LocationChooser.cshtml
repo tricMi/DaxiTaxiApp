@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+}
+@model DaxiTaxi.Models.Location
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js"
+            integrity="sha512-1tScwpjXwwnm6tTva0l0/ZgM3rYNbdyMj5q6RSQMbNX6EUMhYDE3pMRGZaT41zHEvLoWEK7qFEJmZDOoDMU7/Q=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <title>Map</title>
+    <style>
+        #map {
+            position: absolute;
+            top: 0%;
+            bottom: 0%;
+            left: 0%;
+            right: 0%;
+        }
+    </style>
+</head>
+<body>
+    <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Open Map</a>
+
+    <div id="myModal" class="modal">
+        <div class="modal-dialog" style="width:1000px !important;margin-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="height: 500px;">
+                    <div id="map"></div>
+                    <div class="modal-body" id="map-canvas"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Choose Location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+        $('#myModal').on('show.bs.modal', function(){
+            setTimeout(function() {
+            map.invalidateSize();
+            }, 10);
+
+        var map = L.map('map').setView([45.267, 19.833], 12)
+
+        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Ke6IXcQlrAX601uWVfEg', {
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
+        }).addTo(map);
+
+
+        var search = L.esri.Geocoding.geosearch().addTo(map);
+
+        var results = L.layerGroup().addTo(map);
+
+        search.on('results', function(data) {
+            results.clearLayers();
+
+            for(var i = data.results.length -1; i >= 0; i--){
+                console.log(data.results[i])
+                results.addLayer(L.marker(data.results[i].latlng))
+            }
+            })
+        });
+
+        </script>
+</body>
+</html>

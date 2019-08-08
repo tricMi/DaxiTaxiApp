@@ -51,8 +51,6 @@ namespace DaxiTaxi.Models
         [Required]
         public ERole Role { get; set; }
 
-        //[Required]
-        //public Ride Ride { get; set; }
 
     }
 }

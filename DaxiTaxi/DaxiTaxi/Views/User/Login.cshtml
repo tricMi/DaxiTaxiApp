@@ -26,9 +26,11 @@
     @Html.AntiForgeryToken()
     <nav class="navbar navbar-expand-lg" style="background-color: #c00c0c;min-height:60px;">
 
-        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:10px;" href="#">DaxiTaxi</a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:40px;">
-           
+        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:15px;" href="#">DaxiTaxi</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:20px;">
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:1000px;padding:20px;" href="~/User/Login" data-toggle="modal">Login<span class="sr-only"></span></a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;" href="~/User/Register">Register</a>
+        
         </div>
     </nav>
     <div class="backgroundImage">
@@ -69,14 +71,14 @@
 
     <footer id="footer" style="background-color:#303030;">
         <div class="row">
-            <p class="col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-right:50px;">&copy; 2019 DaxiTaxi</p>
+            <p class="col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-left:450px;">&copy; 2019 DaxiTaxi</p>
         </div>
     </footer>
 
     <script>
-          $(window).on('load',function(){
-             $('#modalLoginForm').modal('show');
-          });
+        $(window).on('load',function(){
+            $('#modalLoginForm').modal('show');
+        });
 
         $(document).ready(function () {
             $("#btnLogin").on("click", function () {

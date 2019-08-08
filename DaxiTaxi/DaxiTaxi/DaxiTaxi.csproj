@@ -156,6 +156,7 @@
     <Compile Include="Controllers\api\RideAPIController.cs" />
     <Compile Include="Controllers\api\UserAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RideController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DTOs\AddressDTO.cs" />
@@ -205,6 +206,22 @@
     <Compile Include="Migrations\201908071302007_AddMoreCustomerRides.cs" />
     <Compile Include="Migrations\201908071302007_AddMoreCustomerRides.Designer.cs">
       <DependentUpon>201908071302007_AddMoreCustomerRides.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071933599_AddMoreVehicles.cs" />
+    <Compile Include="Migrations\201908071933599_AddMoreVehicles.Designer.cs">
+      <DependentUpon>201908071933599_AddMoreVehicles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071938307_ChangeVehicles.cs" />
+    <Compile Include="Migrations\201908071938307_ChangeVehicles.Designer.cs">
+      <DependentUpon>201908071938307_ChangeVehicles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071942296_AddMoreLocations.cs" />
+    <Compile Include="Migrations\201908071942296_AddMoreLocations.Designer.cs">
+      <DependentUpon>201908071942296_AddMoreLocations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071959452_AddMoreDrivers.cs" />
+    <Compile Include="Migrations\201908071959452_AddMoreDrivers.Designer.cs">
+      <DependentUpon>201908071959452_AddMoreDrivers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -277,6 +294,7 @@
     <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\User\AddDrivers.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\Location\LocationChooser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +337,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908071302007_AddMoreCustomerRides.resx">
       <DependentUpon>201908071302007_AddMoreCustomerRides.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071933599_AddMoreVehicles.resx">
+      <DependentUpon>201908071933599_AddMoreVehicles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071938307_ChangeVehicles.resx">
+      <DependentUpon>201908071938307_ChangeVehicles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071942296_AddMoreLocations.resx">
+      <DependentUpon>201908071942296_AddMoreLocations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071959452_AddMoreDrivers.resx">
+      <DependentUpon>201908071959452_AddMoreDrivers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
