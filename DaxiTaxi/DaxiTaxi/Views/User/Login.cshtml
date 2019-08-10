@@ -91,21 +91,25 @@
                     "Password": password
                 }
 
-                alert("Username: " + username + password)
                 $.ajax({
                     type: "POST",
                     url: "https://localhost:44345/api/userapi/login",
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
-                    dataType: "text",
+                    dataType: "json",
                     success: function (response) {
-                        alert("Success");
+                        console.log("Success");
+                        console.log(response)
+                        console.log(response.Id)
+                        if (response.Role === 1) {
+                            window.location.replace("https://localhost:44345/Ride/UserPage")
+                        }
                     },
                     failure: function (response) {
-                        alert("Failure");
+                        console.log("Failure");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        alert("Error: " + errorThrown + " , Please try again");
+                        console.log("Error: " + errorThrown + " , Please try again");
                     }
 
                 })

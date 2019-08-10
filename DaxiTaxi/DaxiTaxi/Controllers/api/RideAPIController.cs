@@ -43,7 +43,7 @@ namespace DaxiTaxi.Controllers.api
             return _taxiContext.Rides.ToList();
         }
 
-        /* ---- Get all customer rides with state Cretaed - On hold ---- */
+        /* ---- Get all customer rides with state Created - On hold ---- */
 
         [HttpGet]
         [Route("api/rideapi/getCustomerRides")]
@@ -99,6 +99,8 @@ namespace DaxiTaxi.Controllers.api
             return _taxiContext.Rides.Where(r => r.RideState == ERideState.Created).ToList();
         }
 
+        /* --- Get all driver rides --- */
+
         [HttpGet]
         [Route("api/rideapi/getDriverRides")]
         public IEnumerable<Ride> GetDriverRides()
@@ -125,7 +127,7 @@ namespace DaxiTaxi.Controllers.api
             return rides;
         }
 
-
+        /* --- Get all rides formed by dispatcher --- */
 
         [HttpGet]
         [Route("api/rideapi/getAdminRides")]
@@ -151,6 +153,46 @@ namespace DaxiTaxi.Controllers.api
             var rides = _taxiContext.Rides.Where(r => r.Dispatcher.Id == id).ToList();
 
             return rides;
+        }
+
+        /* --- Get a single ride item --- */
+
+        [HttpGet]
+        [Route("api/rideapi/getRide")]
+        public Ride GetRide(string Id)
+        {
+            var id = int.Parse(Id);
+            var ride = _taxiContext.Rides.Include("CustomerLocation").
+                Include("CustomerLocation.Address").Include("Customer").SingleOrDefault(r => r.Id == id);
+
+            if(ride == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            return ride;
+        }
+
+        /* --- Customer cancel ride option --- */
+
+        [HttpPut]
+        [Route("api/rideapi/cancelRide")]
+        public IHttpActionResult CancelRide(string id)
+        {
+            int Id = int.Parse(id);
+
+            var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == Id);
+
+            if(customersRide == null)
+            {
+                return BadRequest();
+            }
+
+            customersRide.RideState = ERideState.Canceled;
+
+            _taxiContext.SaveChanges();
+
+            return Ok();
         }
     }
 }

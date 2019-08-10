@@ -223,6 +223,14 @@
     <Compile Include="Migrations\201908071959452_AddMoreDrivers.Designer.cs">
       <DependentUpon>201908071959452_AddMoreDrivers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908101034512_AddMoreRides.cs" />
+    <Compile Include="Migrations\201908101034512_AddMoreRides.Designer.cs">
+      <DependentUpon>201908101034512_AddMoreRides.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908101051265_AddRide.cs" />
+    <Compile Include="Migrations\201908101051265_AddRide.Designer.cs">
+      <DependentUpon>201908101051265_AddRide.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -247,6 +255,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CustomersRide.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
@@ -419,6 +428,9 @@
     <Content Include="Images\icons8-user-60.png" />
     <Content Include="Images\icons8-user-64.png" />
     <Content Include="Images\kenny-luo-GIvpl2zapZk-unsplash.jpg" />
+    <Content Include="Images\taxi-32.png" />
+    <Content Include="Images\taxi-48.png" />
+    <Content Include="Images\taxi-64.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
@@ -532,6 +544,9 @@
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Location\LocationChooser.cshtml" />
     <Content Include="Views\Ride\UserPage.cshtml" />
+    <Content Include="Views\Ride\AdminPage.cshtml" />
+    <Content Include="Views\Ride\DriverPage.cshtml" />
+    <Content Include="Views\Ride\CustomersRide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -585,6 +600,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908071959452_AddMoreDrivers.resx">
       <DependentUpon>201908071959452_AddMoreDrivers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908101034512_AddMoreRides.resx">
+      <DependentUpon>201908101034512_AddMoreRides.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908101051265_AddRide.resx">
+      <DependentUpon>201908101051265_AddRide.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

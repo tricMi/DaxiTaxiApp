@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,9 +14,11 @@ namespace DaxiTaxi.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Order Date")]
         public DateTime OrderDateTime { get; set; }
 
         [Required]
+        [Display(Name = "Current Location")]
         public Location CustomerLocation { get; set; }
 
         public Customer Customer { get; set; }
@@ -25,11 +29,14 @@ namespace DaxiTaxi.Models
 
         public Driver Driver { get; set; }
 
+        [Display(Name = "Cost")]
         public double Amount { get; set; }
 
         public Comment Comment { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         [Required]
+        [Display(Name = "State")]
         public ERideState RideState { get; set; }
     }
 }

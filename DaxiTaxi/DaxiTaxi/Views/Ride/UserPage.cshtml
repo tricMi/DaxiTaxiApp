@@ -33,10 +33,9 @@
                 <tr>
                     <th>Order Date and Time</th>
                     <th>Customer</th>
-                    <th>Driver</th>
                     <th>Current Location</th>
                     <th>Destination</th>
-                    <th>Amount</th>
+                    <th>Cost</th>
                     <th>Ride State</th>
                 </tr>
             </thead>
@@ -63,19 +62,19 @@
                 },
                 columns: [
                     {
-                        data: "OrderDateTime"
+                        data: "OrderDateTime",
+                        render: function (data, type, ride) {
+                            return '<a href = "https://localhost:44345/Ride/CustomersRide?id=' + ride.Id + ' "> ' + ride.OrderDateTime + '</a > '
+                        }
                     },
                     {
                         data: "Customer.Username"
-                    },
-                    {            
-                       data: "Driver"
                     },
                     {
                         data: "CustomerLocation.Address.City"
                     },
                     {
-                         data: "Destination"
+                        data: "Destination"
                     },
                     {
                         data: "Amount"

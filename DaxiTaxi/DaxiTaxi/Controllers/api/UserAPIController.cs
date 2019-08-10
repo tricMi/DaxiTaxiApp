@@ -36,12 +36,12 @@ namespace DaxiTaxi.Controllers.api
         {
             var loggedInUser = _taxiContext.Users.SingleOrDefault(u => u.Username == data.Username && u.Password == data.Password);
 
-            if (loggedInUser != null && ModelState.IsValid)
+            if (loggedInUser != null)
             {
                 var session = HttpContext.Current.Session;
                 session["UserId"] = loggedInUser.Id.ToString();
                 session["Username"] = loggedInUser.Username.ToString();
-                return Ok();
+                return Ok(loggedInUser);
             }
             else
                 return NotFound();
@@ -65,7 +65,7 @@ namespace DaxiTaxi.Controllers.api
             return customer;
         }
 
-        /* ---- Get current logged in user ---- */
+        /* ---- Get currently logged in user ---- */
 
         [HttpGet]
         [Route("api/userapi/loggedUser")]
@@ -109,7 +109,7 @@ namespace DaxiTaxi.Controllers.api
             currentUser.JMBG = user.JMBG;
             currentUser.PhoneNumber = user.PhoneNumber;
             currentUser.Email = user.Email;
-            currentUser.Password = user.Password;
+           // currentUser.Password = user.Password;
 
             _taxiContext.SaveChanges();
 
@@ -152,6 +152,14 @@ namespace DaxiTaxi.Controllers.api
             return driver;
         }
 
+        /* --- Logout method --- */
 
+        [HttpGet]
+        [Route("api/userapi/logout")]
+        public IHttpActionResult Logout()
+        {
+            HttpContext.Current.Session.Abandon();
+            return Ok();
+        }
     }
 }

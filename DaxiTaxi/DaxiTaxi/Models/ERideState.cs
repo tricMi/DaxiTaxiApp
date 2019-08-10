@@ -8,7 +8,7 @@ namespace DaxiTaxi.Models
 {
     public enum ERideState
     {
-        [Display(Name = "Created-On Hold")]
+        [Display(Name = "Created - On Hold")]
         Created,
         Formed,
         Processed,
