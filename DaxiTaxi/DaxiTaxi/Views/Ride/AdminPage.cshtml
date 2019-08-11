@@ -1,10 +1,103 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+@model DaxiTaxi.Models.Ride
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/login.css">
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <title></title>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #c00c0c;min-height:60px;">
+        <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:15px;" href="#">DaxiTaxi</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:20px;">
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:1000px;padding:20px;margin-bottom:40px;" href="">Book a Ride<span class="sr-only"></span></a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;" href="~/User/Profile">Profile</a>
+        </div>
+    </nav>
+
+    <div class="backgroundImage"></div>
+
+    <div class="container" style="width:1000px;margin-top:30px;">
+        <h3 class="text-center" style="color:white">Booked Tickets</h3>
+        <table class="table table-borderless" id="customerRides" style="background-color:white; opacity: 0.8;color: red;border-radius:10px;">
+            <thead>
+                <tr>
+                    <th>Admin</th>
+                    <th>Order Date and Time</th>
+                    <th>Customer</th>
+                    <th>Driver</th>
+                    <th>Current Location</th>
+                    <th>Destination</th>
+                    <th>Cost</th>
+                    <th>Ride State</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <footer id="footer" style="background-color:#303030;">
+        <div class="row">
+            <p class="col-sm-4" style="text-align: center;color: white;margin-top:8px;margin-left:450px;">&copy; 2019 DaxiTaxi</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $('#customerRides').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: true,
+                paging: true,
+                searching: true,
+                ajax: {
+                    url: "https://localhost:44345/api/rideapi/getAdminRides",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data:"Dispatcher.Username"
+                    },
+                    {
+                        data: "OrderDateTime",
+                        //render: function (data, type, ride) {
+                        //    return '<a href = "https://localhost:44345/Ride/CustomersRide?id=' + ride.Id + ' "> ' + ride.OrderDateTime + '</a > '
+                        //}
+                    },
+                    {
+                        data: "Customer.Username"
+                    },
+                    {
+                        data: "Driver.Username"
+                    },
+                    {
+                        data: "CustomerLocation.Address.City"
+                    },
+                    {
+                        data: "Destination"
+                    },
+                    {
+                        data: "Amount"
+                    },
+                    {
+                        data: "RideState"
+                    }
+                ]
+            })
+        })
+    </script>
 
 </body>
 </html>

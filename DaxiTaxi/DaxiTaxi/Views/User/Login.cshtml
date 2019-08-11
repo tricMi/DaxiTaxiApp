@@ -100,16 +100,24 @@
                     success: function (response) {
                         console.log("Success");
                         console.log(response)
-                        console.log(response.Id)
+
+                        //If response is successful navigate to another page based on users role
                         if (response.Role === 1) {
                             window.location.replace("https://localhost:44345/Ride/UserPage")
                         }
+                        else if (response.Role === 0) {
+                            window.location.replace("https://localhost:44345/Ride/AdminPage")
+                        }
+                        else {
+                            window.location.replace("https://localhost:44345/Ride/DriverPage")
+                        }
+
                     },
                     failure: function (response) {
                         console.log("Failure");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("Error: " + errorThrown + " , Please try again");
+                        alert("Error: " + errorThrown + " , Please try again");
                     }
 
                 })

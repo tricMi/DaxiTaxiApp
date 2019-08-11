@@ -150,7 +150,9 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            var rides = _taxiContext.Rides.Where(r => r.Dispatcher.Id == id).ToList();
+            var rides = _taxiContext.Rides.Include("CustomerLocation").Include("CustomerLocation.Address").
+                            Include("Driver").Include("Customer").Include("Comment").Include("Destination").
+                                Where(r => r.Dispatcher.Id == id).ToList();
 
             return rides;
         }
