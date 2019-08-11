@@ -547,6 +547,8 @@
     <Content Include="Views\Ride\AdminPage.cshtml" />
     <Content Include="Views\Ride\DriverPage.cshtml" />
     <Content Include="Views\Ride\CustomersRide.cshtml" />
+    <Content Include="Views\Ride\Rides.cshtml" />
+    <Content Include="Views\Ride\CreatedRides.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,5 +33,15 @@ namespace DaxiTaxi.Controllers
         {
             return View();
         }
+
+        public ActionResult Rides()
+        {
+            return View();
+        }
+
+        public ActionResult CreatedRides()
+        {
+            return View();
+        }
     }
 }

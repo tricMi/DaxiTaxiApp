@@ -40,10 +40,11 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            return _taxiContext.Rides.ToList();
+            return _taxiContext.Rides.Include("CustomerLocation").Include("CustomerLocation.Address").Include("Driver").
+                        Include("Customer").Include("Comment").Include("Destination").ToList();
         }
 
-        /* ---- Get all customer rides with state Created - On hold ---- */
+        /* ---- Get all customer rides ---- */
 
         [HttpGet]
         [Route("api/rideapi/getCustomerRides")]
@@ -96,7 +97,9 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            return _taxiContext.Rides.Where(r => r.RideState == ERideState.Created).ToList();
+            return _taxiContext.Rides.Include("CustomerLocation").Include("CustomerLocation.Address").
+                        Include("Driver").Include("Customer").Include("Comment").Include("Destination").Include("Dispatcher").
+                            Where(r => r.RideState == ERideState.Created).ToList();
         }
 
         /* --- Get all driver rides --- */
@@ -122,7 +125,9 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            var rides = _taxiContext.Rides.Where(r => r.Driver.Id == id).ToList();
+            var rides = _taxiContext.Rides.Include("CustomerLocation").Include("CustomerLocation.Address").
+                            Include("Dispatcher").Include("Customer").Include("Comment").Include("Destination").
+                                Where(r => r.Driver.Id == id).ToList();
 
             return rides;
         }

@@ -14,41 +14,41 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Profile</title>
   
 </head>
 <body>
     <div class="contact-form">
         <img src="../../Images/icons8-user-60.png" class="avatar">
-        <h4 style=" margin: 0;padding: 0 0 20px;color: #fff;text-align: center;text-transform: uppercase;"> @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "text-align:center;margin-left:200px;-webkit-appearance: none;" })</h4>
+        <h4 style=" margin: 0;padding: 0 0 20px;color: #fff;text-align: center;text-transform: uppercase;"> @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "text-align:center;margin-left:200px;-webkit-appearance: none;color:white;" })</h4>
         <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
             <tr>
                 <th style="border:0;">USERNAME</th>
-                <td style="border:0;">@Html.EditorFor(model => model.Username, new { htmlAttributes = new { id = "username", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;" } })</td>
+                <td style="border:0;">@Html.EditorFor(model => model.Username, new { htmlAttributes = new { id = "username", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">NAME</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Name, new { htmlAttributes = new { id = "name", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;border-top-style:none;" } })</td>
+                <td style="border:0;"> @Html.EditorFor(model => model.Name, new { htmlAttributes = new { id = "name", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;border-top-style:none;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">SURNAME</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;" } })</td>
+                <td style="border:0;"> @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">JMBG</th>
-                <td style="border:0;">@Html.EditorFor(model => model.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;" } })</td>
+                <td style="border:0;">@Html.EditorFor(model => model.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">EMAIL</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Email, new { htmlAttributes = new { id = "email", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;background-color:transparent;color:red;" } })</td>
+                <td style="border:0;"> @Html.EditorFor(model => model.Email, new { htmlAttributes = new { id = "email", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;background-color:transparent;color:red;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">PHONE</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;" } })</td>
+                <td style="border:0;"> @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">PASSWORD</th>
-                <td style="border:0;">@Html.PasswordFor(model => model.Password, new { htmlAttributes = new { id = "password", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;" } })</td>
+                <td style="border:0;">@Html.PasswordFor(model => model.Password, new { htmlAttributes = new { id = "password", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;">GENDER</th>

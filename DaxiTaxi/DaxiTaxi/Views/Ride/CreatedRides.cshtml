@@ -16,7 +16,7 @@
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <title>Driver's Page</title>
+    <title>Created Rides</title>
 </head>
 <body>
 
@@ -38,9 +38,9 @@
         <table class="table table-borderless" id="customerRides" style="background-color:white; opacity: 0.8;color: red;border-radius:10px;">
             <thead>
                 <tr>
-                    <th>Driver</th>
                     <th>Order Date and Time</th>
                     <th>Customer</th>
+                    <th>Admin</th>
                     <th>Current Location</th>
                     <th>Destination</th>
                     <th>Cost</th>
@@ -65,21 +65,24 @@
                 paging: true,
                 searching: true,
                 ajax: {
-                    url: "https://localhost:44345/api/rideapi/getDriverRides",
+                    url: "https://localhost:44345/api/rideapi/getAllCreatedRides",
                     dataSrc: ""
                 },
                 columns: [
-                    {
-                        data: "Driver.Username"
-                    },
+
                     {
                         data: "OrderDateTime",
+                        
                         //render: function (data, type, ride) {
                         //    return '<a href = "https://localhost:44345/Ride/CustomersRide?id=' + ride.Id + ' "> ' + ride.OrderDateTime + '</a > '
                         //}
                     },
                     {
                         data: "Customer.Username"
+                    },
+                    {
+                        data: "Dispatcher.Username",
+                        defaultContent: ""
                     },
 
                     {
