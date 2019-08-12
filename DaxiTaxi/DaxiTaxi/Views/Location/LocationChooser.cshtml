@@ -56,6 +56,8 @@
             map.invalidateSize();
             }, 10);
 
+        var lat;
+        var lon;
         var map = L.map('map').setView([45.267, 19.833], 12)
 
         L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Ke6IXcQlrAX601uWVfEg', {
@@ -67,11 +69,19 @@
 
         var results = L.layerGroup().addTo(map);
 
+
         search.on('results', function(data) {
             results.clearLayers();
 
-            for(var i = data.results.length -1; i >= 0; i--){
-                console.log(data.results[i])
+            for (var i = data.results.length - 1; i >= 0; i--){
+                //Extracting values from location object
+                var lat = data.results[i].latlng.lat
+                var lon = data.results[i].latlng.lng
+                var text = data.results[i].text.split(",")
+                var number = text[0]
+                var num = number.replace(/[^0-9]/g, '');
+                
+                console.log(data.results[i], lat, lon, text[0], num)
                 results.addLayer(L.marker(data.results[i].latlng))
             }
             })

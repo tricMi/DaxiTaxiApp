@@ -170,7 +170,7 @@ namespace DaxiTaxi.Controllers.api
         {
             var id = int.Parse(Id);
             var ride = _taxiContext.Rides.Include("CustomerLocation").
-                Include("CustomerLocation.Address").Include("Customer").SingleOrDefault(r => r.Id == id);
+                Include("CustomerLocation.Address").Include("Customer").Include("Dispatcher").Include("Driver").SingleOrDefault(r => r.Id == id);
 
             if(ride == null)
             {
@@ -200,6 +200,17 @@ namespace DaxiTaxi.Controllers.api
             _taxiContext.SaveChanges();
 
             return Ok();
+        }
+
+        /* --- Method that returns only available drivers */
+
+        [HttpGet]
+        [Route("api/rideapi/available")]
+        public IEnumerable<User> GetAvailableDrivers()
+        {
+            var availableDrivers = _taxiContext.Users.Where(v => v.Role == ERole.DRIVER).
+                        Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).ToList();
+            return availableDrivers;
         }
     }
 }

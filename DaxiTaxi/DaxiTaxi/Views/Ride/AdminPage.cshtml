@@ -74,9 +74,9 @@
                     },
                     {
                         data: "OrderDateTime",
-                        //render: function (data, type, ride) {
-                        //    return '<a href = "https://localhost:44345/Ride/CustomersRide?id=' + ride.Id + ' "> ' + ride.OrderDateTime + '</a > '
-                        //}
+                        render: function (data, type, ride) {
+                            return '<a href = "https://localhost:44345/Ride/AdminsRide?id=' + ride.Id + ' "> ' + ride.OrderDateTime + '</a > '
+                        }
                     },
                     {
                         data: "Customer.Username"

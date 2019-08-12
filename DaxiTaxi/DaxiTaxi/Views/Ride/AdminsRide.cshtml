@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
 
@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Admin Rides</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/CustomersRide.css">
@@ -22,13 +22,21 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group" style="margin-bottom:50px;">
-            @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "control-label col-md-2", style = "background:transparent;border:0;text-align:center;color:white;font-size:20px;"  } })
+            @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "control-label col-md-2", style = "background:transparent;border:0;text-align:center;color:white;font-size:20px;", @readonly = "readonly" } })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Customer.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
+            @Html.LabelFor(model => model.Dispatcher.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;" } })
+                @Html.EditorFor(model => model.Dispatcher.Username, new { htmlAttributes = new { id = "dispatcher", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;margin-bottom:-20px;", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Dispatcher.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        <div class="form-group" style="margin-left:90px;">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;margin-bottom:20px;", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Customer.Username, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +44,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerLocation.Address, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;"} })
+                @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.CustomerLocation, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,29 +52,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RideState, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;" } })
+                @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="padding-top:10px;">
             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:25px;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;margin-top:15px;color:white;" } })
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;margin-top:15px;color:white;", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <form id="myForm" style="margin-left:150px;margin-top:20px;">
+            <select class="form-control" id="driverDropdown" name="driverDropdown" style="width:300px;float:left;"></select>
+        </form>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnCancelRide" value="Cancel Ride" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:150px;margin-left:50px;" />
+                <input type="submit" id="btnAssignRide" value="Assign Ride" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:100px;margin-left:50px;" />
             </div>
         </div>
 
     </div>
 
     <script>
-        $("#btnCancelRide").attr("disabled", true);
+
         var id = window.location.search.slice(1).split('&')[0].split('=')[1];
 
         $(document).ready(function () {
@@ -76,6 +88,8 @@
             var cost = $("#amount")
             var customer = $("#customer")
             var state = $("#state")
+            var admin = $("#dispatcher")
+            var driver = $("#driverDropdown")
 
             $.ajax({
                 type: "GET",
@@ -83,7 +97,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
                     console.log("Success");
-                    console.log(response.OrderDateTime + response)
+                    console.log(response)
                     date.val(response.OrderDateTime)
                     currentLocation.val(response.CustomerLocation.Address.Street + " " +
                         response.CustomerLocation.Address.StreetNumber + " " +
@@ -92,9 +106,8 @@
                     cost.val(response.Amount)
                     customer.val(response.Customer.Username)
                     state.val(response.RideState)
-                    if (response.RideState === 'Created') {
-                        $("#btnCancelRide").attr("disabled", false);
-                    }
+                    admin.val(response.Dispatcher.Username)
+                    driver.val(response.Driver.Username)
 
                 },
                 failure: function (response) {
@@ -108,29 +121,23 @@
             })
         })
 
+        $(document).ready(function () {  
+           $.ajax({  
+               type: "GET",  
+               url: "https://localhost:44345/api/rideapi/available",  
+               data: "{}",  
+               success: function (data) {
+                   console.log(data)
+                   var s = '<option value="0">Select a Driver</option>';  
+                   for (var i = 0; i < data.length; i++) {  
+                       s += '<option value="' + data[i].Id + '">' + data[i].Username + '</option>';  
+                   }  
+                   $("#driverDropdown").html(s);  
+               }  
+           });  
+       });  
 
-        $(document).ready(function () {
-
-            $("#btnCancelRide").on("click", function () {
-
-                $.ajax({
-
-                    type: "PUT",
-                    url: "https://localhost:44345/api/rideapi/cancelRide?id=" + id,
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        console.log("Success");
-                    },
-                    failure: function (response) {
-                        console.log("Failure");
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("Error: " + errorThrown + " , Please try again");
-                    }
-
-                })
-            })
-        })
+      
 
     </script>
 </body>
