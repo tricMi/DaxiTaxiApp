@@ -25,23 +25,17 @@
             @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "control-label col-md-2", style = "background:transparent;border:0;text-align:center;color:white;font-size:20px;", @readonly = "readonly" } })
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dispatcher.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
+        <div class="form-group" style="float:left;">
+            @Html.LabelFor(model => model.Customer.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Dispatcher.Username, new { htmlAttributes = new { id = "dispatcher", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;margin-bottom:-20px;", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.Dispatcher.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        
-        <div class="form-group" style="margin-left:90px;">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;margin-bottom:20px;", @readonly = "readonly" } })
+                @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "dispatcher", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;margin-bottom:-20px;", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Customer.Username, "", new { @class = "text-danger" })
             </div>
         </div>
 
+
         <div class="form-group">
+
             @Html.LabelFor(model => model.CustomerLocation.Address, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;", @readonly = "readonly" } })
@@ -65,6 +59,7 @@
             </div>
         </div>
 
+        <label style="color:white;margin-top:15px;height:30px;margin-right:330px;padding-top:30px;margin-left:30px;float:left;">Driver</label>
         <form id="myForm" style="margin-left:150px;margin-top:20px;">
             <select class="form-control" id="driverDropdown" name="driverDropdown" style="width:300px;float:left;"></select>
         </form>
@@ -80,34 +75,61 @@
     <script>
 
         var id = window.location.search.slice(1).split('&')[0].split('=')[1];
+        var dispatecher;
+                    var driverId;
 
         $(document).ready(function () {
 
             var date = $("#date")
             var currentLocation = $("#currentLocation")
             var cost = $("#amount")
-            var customer = $("#customer")
             var state = $("#state")
             var admin = $("#dispatcher")
             var driver = $("#driverDropdown")
+
 
             $.ajax({
                 type: "GET",
                 url: "https://localhost:44345/api/rideapi/getRide?id=" + id,
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                    console.log("Success");
-                    console.log(response)
-                    date.val(response.OrderDateTime)
+
+                    console.log("Success" + " " + response);
+
+
                     currentLocation.val(response.CustomerLocation.Address.Street + " " +
                         response.CustomerLocation.Address.StreetNumber + " " +
                         response.CustomerLocation.Address.CallNumber + " " +
-                        response.CustomerLocation.Address.City )
+                        response.CustomerLocation.Address.City)
+
                     cost.val(response.Amount)
-                    customer.val(response.Customer.Username)
+                    admin.val(response.Customer.Username)
                     state.val(response.RideState)
-                    admin.val(response.Dispatcher.Username)
-                    driver.val(response.Driver.Username)
+
+                    dispatcher = (response.Dispatcher != null) ? (date.val(response.Dispatcher.Username + " - " + response.OrderDateTime)) :  (date.val(response.OrderDateTime))
+
+                    if (response.Driver != null) {
+                        var s = '<option value="' + response.Driver.Id + '">' + response.Driver.Username + '</option>';
+                        driver.html(s)
+                    } else {
+
+                            $.ajax({  
+                                type: "GET",  
+                                url: "https://localhost:44345/api/rideapi/available",  
+                                data: "{}",  
+                                success: function (data) {
+                                    console.log(data)
+                                    var s; 
+                                    for (var i = 0; i < data.length; i++) {  
+                                        s += '<option value="' + data[i].Id + '">' + data[i].Username + '</option>';  
+                                    }  
+                                    $("#driverDropdown").html(s);  
+
+                                    
+                                }  
+                            });  
+  
+                    }
 
                 },
                 failure: function (response) {
@@ -119,25 +141,47 @@
                 }
 
             })
+
+            
+            
+            
         })
 
-        $(document).ready(function () {  
-           $.ajax({  
-               type: "GET",  
-               url: "https://localhost:44345/api/rideapi/available",  
-               data: "{}",  
-               success: function (data) {
-                   console.log(data)
-                   var s = '<option value="0">Select a Driver</option>';  
-                   for (var i = 0; i < data.length; i++) {  
-                       s += '<option value="' + data[i].Id + '">' + data[i].Username + '</option>';  
-                   }  
-                   $("#driverDropdown").html(s);  
-               }  
-           });  
-       });  
+        $(document).ready(function () {
 
-      
+            $('#driverDropdown').click(function (event) {
+                var departureAirportt = $(event.target).val()
+                if (departureAirportt != null) {
+                    driverId = departureAirportt
+                    console.log(driverId)
+                   
+                }
+                console.log("In function" + driverId)
+                
+                 $("#btnAssignRide").on("click", function () {
+
+                        $.ajax({
+
+                            type: "PUT",
+                            url: "https://localhost:44345/api/managerideapi/acceptRide?id=" + id + '&driverId=' + driverId,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                console.log("Success");
+                            },
+                            failure: function (response) {
+                                console.log("Failure");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert("Error: " + errorThrown + " , Please try again");
+                            }
+
+                        })
+                    })
+
+            })
+          
+        })
+        console.log("Idddd" + driverId)
 
     </script>
 </body>

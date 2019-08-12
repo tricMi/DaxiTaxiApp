@@ -74,14 +74,6 @@
             results.clearLayers();
 
             for (var i = data.results.length - 1; i >= 0; i--){
-                //Extracting values from location object
-                var lat = data.results[i].latlng.lat
-                var lon = data.results[i].latlng.lng
-                var text = data.results[i].text.split(",")
-                var number = text[0]
-                var num = number.replace(/[^0-9]/g, '');
-                
-                console.log(data.results[i], lat, lon, text[0], num)
                 results.addLayer(L.marker(data.results[i].latlng))
             }
             })

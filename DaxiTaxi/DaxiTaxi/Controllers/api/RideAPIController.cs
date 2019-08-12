@@ -202,14 +202,15 @@ namespace DaxiTaxi.Controllers.api
             return Ok();
         }
 
-        /* --- Method that returns only available drivers */
+        /* --- Method that returns only available drivers --- */
 
         [HttpGet]
         [Route("api/rideapi/available")]
         public IEnumerable<User> GetAvailableDrivers()
         {
             var availableDrivers = _taxiContext.Users.Where(v => v.Role == ERole.DRIVER).
-                        Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).ToList();
+            Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).ToList();
+
             return availableDrivers;
         }
     }

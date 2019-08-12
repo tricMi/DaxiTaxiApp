@@ -232,6 +232,14 @@
     <Compile Include="Migrations\201908101051265_AddRide.Designer.cs">
       <DependentUpon>201908101051265_AddRide.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908121939119_ChangeDataInDb.cs" />
+    <Compile Include="Migrations\201908121939119_ChangeDataInDb.Designer.cs">
+      <DependentUpon>201908121939119_ChangeDataInDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908121944036_ChangeRideDataAgain.cs" />
+    <Compile Include="Migrations\201908121944036_ChangeRideDataAgain.Designer.cs">
+      <DependentUpon>201908121944036_ChangeRideDataAgain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -611,6 +619,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908101051265_AddRide.resx">
       <DependentUpon>201908101051265_AddRide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908121939119_ChangeDataInDb.resx">
+      <DependentUpon>201908121939119_ChangeDataInDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908121944036_ChangeRideDataAgain.resx">
+      <DependentUpon>201908121944036_ChangeRideDataAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
