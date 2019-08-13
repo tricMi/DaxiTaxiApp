@@ -1,0 +1,228 @@
+﻿@{
+    Layout = null;
+}
+@model DaxiTaxi.Models.Ride
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js"
+            integrity="sha512-1tScwpjXwwnm6tTva0l0/ZgM3rYNbdyMj5q6RSQMbNX6EUMhYDE3pMRGZaT41zHEvLoWEK7qFEJmZDOoDMU7/Q=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bookride.css">
+    <title>Map</title>
+    <style>
+        #map {
+            position: absolute;
+            top: 0%;
+            bottom: 0%;
+            left: 0%;
+            right: 0%;
+        }
+    </style>
+    
+</head>
+    <body>
+
+        <div id="myModal" class="modal">
+            <div class="modal-dialog" style="width:1000px !important;margin-top: 10px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body" style="height: 500px;">
+                        <div id="map"></div>
+                        <div class="modal-body" id="map-canvas"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal" aria-hidden="true" id="choose">Choose Location</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h4 style="text-align:center;color:red;font-weight:bold;">Book A Ride</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group" style="margin-top:30px;">
+                @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "form-control", style = "width:300px;height:30px;margin-left:10px;color:red;background-color:transparent;border:0;border-bottom: 1px solid red;", placeholder = "Date" } })
+                    @Html.ValidationMessageFor(model => model.OrderDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Customer.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "width:300px;height:30px;margin-left:100px;color:red;margin-bottom:20px;", placeholder = "Customer"  } })
+                    @Html.ValidationMessageFor(model => model.Customer.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.CustomerLocation.Address, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:100px;color:red;margin-top:30px;", placeholder = "Your Current Location"  } })
+                    @Html.ValidationMessageFor(model => model.CustomerLocation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:red;background-color:transparent;border:none;margin-top:30px;margin-left:100px;">Open Map</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-5">
+                    <input type="submit" id="btnCancelRide" value="Cancel" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:100px;margin-left:-80px;height:35px;" />
+                </div>
+                <div class="col-md-offset-2 col-md-5">
+                    
+                    <input type="submit" id="btnBookRide" value="Book" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:-60px;margin-left:200px;height:35px;" />
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                var lat;
+                var lon;
+                var street;
+                var streetNum;
+                var callNum;
+                var city;
+               
+                var currentDate = new Date().toLocaleDateString();
+                console.log(currentDate);
+                $("#date").val(currentDate);
+
+
+                $.ajax({
+                    type: "GET",
+                    url: "https://localhost:44345/api/userapi/loggedUser",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        $("#customer").val(response.Username);
+                    },
+                    failure: function (response) {
+                        console.log("Failure");
+                    },
+                    error: function (response) {
+                        alert("Error")
+                        window.location.href = "~/Home/Main"
+                        console.log("Error: " + " , Please try again");
+                    }
+
+                })
+
+                $('#myModal').on('show.bs.modal', function () {
+                    console.log("are You called")
+                    setTimeout(function () {
+                        map.invalidateSize();
+                    }, 10);
+
+
+
+                    var map = L.map('map').setView([45.267, 19.833], 12)
+
+                    L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Ke6IXcQlrAX601uWVfEg', {
+                        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
+                    }).addTo(map);
+
+
+                    var search = L.esri.Geocoding.geosearch().addTo(map);
+
+                    var results = L.layerGroup().addTo(map);
+
+
+                    search.on('results', function (data) {
+                        results.clearLayers();
+
+                        
+                        for (var i = data.results.length - 1; i >= 0; i--) {
+                            //Extracting values from location object
+                            lat = data.results[i].latlng.lat
+                            lon = data.results[i].latlng.lng
+                            var text = data.results[i].text.split(",")
+                            var cstreet = text[0]
+                            streetNum = cstreet.replace(/[^0-9]/g, '');
+                            street = cstreet.replace(streetNum, '')
+                            city = text[2]
+                            callNum = text[1]
+
+                            results.addLayer(L.marker(data.results[i].latlng))
+                            break;
+ 
+                        }
+
+                        $("#choose").on("click", function () {
+
+                            $("#currentLocation").val(street + " " + streetNum + " " + callNum + " " + city)
+
+                                 $("#btnBookRide").on("click", function () {
+
+
+                                     var data = {
+
+                                         "CustomerLocation":
+                                             {
+                                             "XCoordinate": lat, "YCoordinate": lon, "Address":
+                                                 {
+                                                     "Street": street, "StreetNumber": streetNum,
+                                                     "City": city, "CallNumber": callNum
+                                                 }
+                                             }
+                                     }
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "https://localhost:44345/api/bookarideapi/bookride",
+                                        data: JSON.stringify(data),
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function (response) {
+                                            alert('Success')
+                                            // window.location.href = '~/User/Login'
+                                        },
+                                        failure: function (response) {
+                                            console.log("Failure");
+                                        },
+                                        error: function (jqXHR, textStatus, errorThrown) {
+                                            alert("Error: " + errorThrown + " , Please try again");
+                                        }
+
+                                    })
+                                 })
+
+                        })
+                       
+
+                    })
+
+                });
+
+            });
+
+        </script>
+    </body>
+
+    
+</html>

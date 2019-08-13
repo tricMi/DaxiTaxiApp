@@ -153,9 +153,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\TaxiAppContext.cs" />
+    <Compile Include="Controllers\api\BookARideAPIController.cs" />
     <Compile Include="Controllers\api\ManageRideAPIController.cs" />
     <Compile Include="Controllers\api\RideAPIController.cs" />
     <Compile Include="Controllers\api\UserAPIController.cs" />
+    <Compile Include="Controllers\BookRideController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RideController.cs" />
@@ -260,6 +262,7 @@
     <Compile Include="ViewModel\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bookride.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -429,6 +432,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\car-1149997_1920.jpg" />
     <Content Include="Images\icons8-get-a-discount-64.png" />
     <Content Include="Images\icons8-internet-60.png" />
     <Content Include="Images\icons8-taxi-24.png" />
@@ -560,6 +564,7 @@
     <Content Include="Views\Ride\CreatedRides.cshtml" />
     <Content Include="Views\Ride\DriversRide.cshtml" />
     <Content Include="Views\Ride\AdminsRide.cshtml" />
+    <Content Include="Views\BookRide\BookARide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -73,10 +73,10 @@
     </div>
 
     <script>
-
+        $("#btnAssignRide").attr("disabled", true);
         var id = window.location.search.slice(1).split('&')[0].split('=')[1];
         var dispatecher;
-                    var driverId;
+        var driverId;
 
         $(document).ready(function () {
 
@@ -112,7 +112,7 @@
                         var s = '<option value="' + response.Driver.Id + '">' + response.Driver.Username + '</option>';
                         driver.html(s)
                     } else {
-
+                            $("#btnAssignRide").attr("disabled", false);
                             $.ajax({  
                                 type: "GET",  
                                 url: "https://localhost:44345/api/rideapi/available",  
@@ -141,10 +141,7 @@
                 }
 
             })
-
-            
-            
-            
+  
         })
 
         $(document).ready(function () {
@@ -181,7 +178,7 @@
             })
           
         })
-        console.log("Idddd" + driverId)
+
 
     </script>
 </body>

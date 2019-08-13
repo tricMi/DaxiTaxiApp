@@ -1,0 +1,61 @@
+﻿
+body {
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+body:before {
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../Images/car-1149997_1920.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    filter: blur(2px);
+    z-index: 1;
+}
+
+.contact-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    height: 560px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 30px;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+
+.contact-form h4 {
+    margin: 0;
+    margin-bottom:50px;
+    padding-bottom:20px;
+    padding: 0 0 0px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.contact-form input {
+
+    margin-bottom: 0px;
+    border: none;
+    border-bottom: 1px solid red;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: red;
+    font-size: 16px;
+}
+
