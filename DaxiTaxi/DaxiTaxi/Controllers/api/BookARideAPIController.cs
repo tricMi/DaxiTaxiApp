@@ -19,50 +19,131 @@ namespace DaxiTaxi.Controllers.api
             _taxiContext = new TaxiAppContext();
         }
 
+        /* --- Method that allows customers to book a ride --- */
+
         [HttpPost]
         [Route("api/bookarideapi/bookride")]
         public Ride BookARide([FromBody]Ride ride)
         {
-            if(ride == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            }
-
             var userUsername = HttpContext.Current.Session["Username"].ToString();
             var userId = HttpContext.Current.Session["UserId"].ToString();
             var id = int.Parse(userId);
 
             var currentUser = (Customer)_taxiContext.Users.Find(id, userUsername);
 
+            if (ride == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            /* --- Add selected address --- */
+
             int streetNum = int.Parse(ride.CustomerLocation.Address.StreetNumber.ToString());
 
-            Address a = new Address();
-            a.City = ride.CustomerLocation.Address.City;
-            a.CallNumber = ride.CustomerLocation.Address.CallNumber;
-            a.Street = ride.CustomerLocation.Address.Street;
-            a.StreetNumber = streetNum;
+            Address currentAddress = new Address
+            {
+                City = ride.CustomerLocation.Address.City,
+                CallNumber = ride.CustomerLocation.Address.CallNumber,
+                Street = ride.CustomerLocation.Address.Street,
+                StreetNumber = streetNum
+            };
 
-            _taxiContext.Addresses.Add(a);
+            _taxiContext.Addresses.Add(currentAddress);
+
+            /* --- Add selected location */
 
             double xcoordinate = double.Parse(ride.CustomerLocation.XCoordinate.ToString());
             double ycoordinate = double.Parse(ride.CustomerLocation.YCoordinate.ToString());
 
-            Location l = new Location();
-            l.XCoordinate = xcoordinate;
-            l.YCoordinate = ycoordinate;
-            l.Address = a;
+            Location currentLocation = new Location
+            {
+                XCoordinate = xcoordinate,
+                YCoordinate = ycoordinate,
+                Address = currentAddress
+            };
 
-            _taxiContext.Locations.Add(l);
+            _taxiContext.Locations.Add(currentLocation);
+
+            /* --- Add ride --- */
 
             DateTime now = DateTime.Now;
 
-            Ride r = new Ride();
-            r.RideState = ERideState.Created;
-            r.Customer = currentUser;
-            r.OrderDateTime = now;
-            r.CustomerLocation = l;
+            Ride createdRide = new Ride
+            {
+                RideState = ERideState.Created,
+                Customer = currentUser,
+                OrderDateTime = now,
+                CustomerLocation = currentLocation
+            };
 
-            _taxiContext.Rides.Add(r);
+            _taxiContext.Rides.Add(createdRide);
+
+            _taxiContext.SaveChanges();
+
+            return ride;
+        }
+
+        /* --- Method for forming rides, available for admins */
+
+        [HttpPost]
+        [Route("api/bookarideapi/formride")]
+        public Ride FormARide([FromBody]Ride ride)
+        {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var id = int.Parse(userId);
+
+            var currentUser = (Admin)_taxiContext.Users.Find(id, userUsername);
+
+            if (ride == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            /* --- Add selected address --- */
+
+            int streetNum = int.Parse(ride.CustomerLocation.Address.StreetNumber.ToString());
+
+            Address currentAddress = new Address
+            {
+                City = ride.CustomerLocation.Address.City,
+                CallNumber = ride.CustomerLocation.Address.CallNumber,
+                Street = ride.CustomerLocation.Address.Street,
+                StreetNumber = streetNum
+            };
+
+            _taxiContext.Addresses.Add(currentAddress);
+
+            /* --- Add selected location */
+
+            double xcoordinate = double.Parse(ride.CustomerLocation.XCoordinate.ToString());
+            double ycoordinate = double.Parse(ride.CustomerLocation.YCoordinate.ToString());
+
+            Location currentLocation = new Location
+            {
+                XCoordinate = xcoordinate,
+                YCoordinate = ycoordinate,
+                Address = currentAddress
+            };
+
+            _taxiContext.Locations.Add(currentLocation);
+
+            /* --- Add ride --- */
+
+            DateTime now = DateTime.Now;
+            int driverId = int.Parse(ride.Driver.Id.ToString());
+            var driver = (Driver)_taxiContext.Users.SingleOrDefault(d => d.Id == driverId);
+
+            Ride formedRide = new Ride
+            {
+                RideState = ERideState.Formed,
+                Dispatcher = currentUser,
+                OrderDateTime = now,
+                CustomerLocation = currentLocation,
+                Driver = driver
+            };
+
+            _taxiContext.Rides.Add(formedRide);
 
             _taxiContext.SaveChanges();
 

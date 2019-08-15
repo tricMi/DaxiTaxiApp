@@ -11,6 +11,7 @@
     <title></title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/CustomersRide.css">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
@@ -82,6 +83,10 @@
                 url: "https://localhost:44345/api/rideapi/getRide?id=" + id,
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
+                    //bootbox.alert({
+                    //     message: "This is the small alert!",
+                    //     size: 'small'
+                    //});
                     console.log("Success");
                     console.log(response.OrderDateTime + response)
                     date.val(response.OrderDateTime)

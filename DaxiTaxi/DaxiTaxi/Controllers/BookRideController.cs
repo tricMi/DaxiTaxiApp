@@ -18,5 +18,10 @@ namespace DaxiTaxi.Controllers
         {
             return View();
         }
+
+        public ActionResult FormARide()
+        {
+            return View();
+        }
     }
 }

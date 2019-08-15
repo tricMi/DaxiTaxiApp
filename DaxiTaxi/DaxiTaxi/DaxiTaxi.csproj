@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201908121944036_ChangeRideDataAgain.Designer.cs">
       <DependentUpon>201908121944036_ChangeRideDataAgain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908131859004_InsertFormedRide.cs" />
+    <Compile Include="Migrations\201908131859004_InsertFormedRide.Designer.cs">
+      <DependentUpon>201908131859004_InsertFormedRide.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -444,6 +448,8 @@
     <Content Include="Images\taxi-32.png" />
     <Content Include="Images\taxi-48.png" />
     <Content Include="Images\taxi-64.png" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
@@ -565,6 +571,7 @@
     <Content Include="Views\Ride\DriversRide.cshtml" />
     <Content Include="Views\Ride\AdminsRide.cshtml" />
     <Content Include="Views\BookRide\BookARide.cshtml" />
+    <Content Include="Views\BookRide\FormARide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -630,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908121944036_ChangeRideDataAgain.resx">
       <DependentUpon>201908121944036_ChangeRideDataAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908131859004_InsertFormedRide.resx">
+      <DependentUpon>201908131859004_InsertFormedRide.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -147,9 +147,9 @@
         $(document).ready(function () {
 
             $('#driverDropdown').click(function (event) {
-                var departureAirportt = $(event.target).val()
-                if (departureAirportt != null) {
-                    driverId = departureAirportt
+                var driversId = $(event.target).val()
+                if (driversId != null) {
+                    driverId = driversId
                     console.log(driverId)
                    
                 }
@@ -164,6 +164,7 @@
                             contentType: "application/json; charset=utf-8",
                             success: function (response) {
                                 console.log("Success");
+                                window.location.href = https://localhost:44345/Ride/AdminPage
                             },
                             failure: function (response) {
                                 console.log("Failure");
