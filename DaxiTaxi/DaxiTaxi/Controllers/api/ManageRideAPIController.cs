@@ -115,13 +115,14 @@ namespace DaxiTaxi.Controllers.api
             }
 
             DateTime current = DateTime.Now;
+            var rate = int.Parse(ride.Comment.Rate.ToString());
 
             Comment driversComment = new Comment
             {
                 Description = ride.Comment.Description,
                 PublishDate = current,
                 UserThatLeftComment = currentUser,
-                Rate = ride.Comment.Rate
+                Rate = rate
             };
 
             _taxiContext.Comments.Add(driversComment);

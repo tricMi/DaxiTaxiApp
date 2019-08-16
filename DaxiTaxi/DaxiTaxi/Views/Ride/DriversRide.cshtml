@@ -156,8 +156,10 @@
             }
         }
 
+        var desc;
+
         function result() {
-            alert("Rating : " + count);
+            desc = $("#comment").val()
         }
 
        
@@ -170,6 +172,7 @@
         var streetnum;
         var callnum;
         var city;
+        
 
         $(document).ready(function () { 
 
@@ -196,7 +199,6 @@
                         response.CustomerLocation.Address.CallNumber + " " +
                         response.CustomerLocation.Address.City)
 
-                    admin.val(response.Customer.Username)
                     state.val(response.RideState)
                     amount.val(response.Amount)
 
@@ -291,6 +293,44 @@
                     }
 
                 })
+
+
+            })
+
+
+
+            $("#btnUnsuccessfulRide").on("click", function () {
+
+                console.log("are you there")
+
+                var data = {
+
+                    "Comment": {
+                        "Rate": count,
+                        "Description": desc
+                    }
+
+                }
+
+                $.ajax({
+                    type: "PUT",
+                    url: "https://localhost:44345/api/managerideapi/rideUnsuccessful?id=" + id,
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert('Success')
+                        window.location.href = 'https://localhost:44345/Ride/DriverPage'
+                    },
+                    failure: function (response) {
+                        console.log("Failure");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error: " + errorThrown + " , Please try again");
+                    }
+
+                })
+
+
             })
         })
     </script>
