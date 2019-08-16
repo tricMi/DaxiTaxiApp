@@ -39,6 +39,11 @@ namespace DaxiTaxi.Controllers
             return View();
         }
 
+        public ActionResult DriversRide()
+        {
+            return View();
+        }
+
         public ActionResult Rides()
         {
             return View();

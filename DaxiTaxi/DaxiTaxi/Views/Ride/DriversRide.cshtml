@@ -1,10 +1,298 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@{
+    Layout = null;
+}
+@model DaxiTaxi.Models.Ride
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js"
+            integrity="sha512-1tScwpjXwwnm6tTva0l0/ZgM3rYNbdyMj5q6RSQMbNX6EUMhYDE3pMRGZaT41zHEvLoWEK7qFEJmZDOoDMU7/Q=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/driversride.css">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+         #map {
+            position: absolute;
+            top: 0%;
+            bottom: 0%;
+            left: 0%;
+            right: 0%;
+        }
+
+        #commentModal {
+            top: 10%;
+        }
+    </style>
 </head>
 <body>
 
+    <div id="commentModal" class="modal">
+        <div class="modal-dialog" style="width:500px !important;margin-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="height: 200px;width: 500px;">
+                    <div class="rating" style="padding-bottom: 10px;">
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:20px;cursor:pointer;" class="fa fa-star checked"></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one" style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one" style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one" style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one" style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+                    </div>
+                    <form id="updateeventsform2" class="form-horizontal" style="margin-left:10px;">
+                        <div class="form-group">
+                            <textarea class="form-control" id='comment' style="width: 98%;height:140px" placeholder="Leave a comment here..."></textarea>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="submit" onclick="result()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-dialog" style="width:1000px !important;margin-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="height: 500px;">
+                    <div id="map"></div>
+                    <div class="modal-body" id="map-canvas"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="choose">Choose Location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        <h4 style=" margin: 0;padding: 0 0 30px;color:red;text-align: center;text-transform: uppercase;font-weight:bold;">Ride</h4>
+        <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
+            <tr>
+                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">CUSTOMER</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:35px;color:white;width:300px;color:red;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">ADMIN</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Dispatcher.Username, new { htmlAttributes = new { id = "admin", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:35px;color:white;width:300px;color:red;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">COST</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:35px;width:300px;background-color:transparent;color:red;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">LOCATION</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.CustomerLocation.Address.City, new { htmlAttributes = new { id = "location", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;width:300px;height:35px;color:red;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">DESTINATION</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Destination.Address.City, new { htmlAttributes = new { id = "destination", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;width:300px;height:35px;color:red;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">RIDE STATE</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;width:300px;height:35px;color:red;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"><a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:red;background-color:transparent;border:none;margin-top:0px;margin-left:30px;">Open Map</a></td>
+            </tr>
+
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"><a href="#commentModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:red;background-color:transparent;border:none;margin-top:0px;margin-left:20px;">Leave a Comment...</a></td>
+            </tr>
+
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"><input type="submit" id="btnUnsuccessfulRide" value="Unsuccessful" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:20px;margin-left:-130px;height:35px;" /></td>
+                <td style="border:0"> <input type="submit" id="btnSuccessfulRide" value="Successful" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:20px;margin-left:-190px;height:35px;" /></td>
+            </tr>
+
+
+        </table>
+    </div>
+    <script>
+        $('#myModal').on('show.bs.modal', function () {
+        })
+
+        var count = 0;
+        function starmark(item) {
+            count = item.id[0];
+            sessionStorage.starRating = count;
+            var subid = item.id.substring(1);
+            for (var i = 0; i < 5; i++) {
+                if (i < count) {
+                    document.getElementById((i + 1) + subid).style.color = "orange";
+                }
+                else {
+                    document.getElementById((i + 1) + subid).style.color = "black";
+                }
+            }
+        }
+
+        function result() {
+            alert("Rating : " + count);
+        }
+
+       
+        var id = window.location.search.slice(1).split('&')[0].split('=')[1];
+        var customercurrent;
+        var dispatcher;
+        var lat;
+        var lon;
+        var street;
+        var streetnum;
+        var callnum;
+        var city;
+
+        $(document).ready(function () { 
+
+ 
+            var customer = $("#customer")
+            var admin = $("#admin")
+            var amount = $("#amount")
+            var location = $("#location")
+            var destination = $("#destination")
+            var state = $("#state")
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44345/api/rideapi/getRide?id=" + id,
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+
+                    console.log("Success" + " " + response);
+
+                    customerCurrent = (response.Customer != null) ? (customer.val(response.Customer.Username)) : (customer.val(""))
+
+                    location.val(response.CustomerLocation.Address.Street + " " +
+                        response.CustomerLocation.Address.StreetNumber + " " +
+                        response.CustomerLocation.Address.CallNumber + " " +
+                        response.CustomerLocation.Address.City)
+
+                    admin.val(response.Customer.Username)
+                    state.val(response.RideState)
+                    amount.val(response.Amount)
+
+                    dispatcher = (response.Dispatcher != null) ? (admin.val(response.Dispatcher.Username)) :  (admin.val(""))
+
+                },
+                failure: function (response) {
+                    console.log("Failure");
+                    console.log(response)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error: " + errorThrown + " , Please try again");
+                }
+
+            })
+
+            $('#myModal').on('show.bs.modal', function () {
+
+                setTimeout(function () {
+                    map.invalidateSize();
+                }, 10);
+
+
+
+                var map = L.map('map').setView([45.267, 19.833], 12)
+
+                L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Ke6IXcQlrAX601uWVfEg', {
+                    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
+                }).addTo(map);
+
+
+                var search = L.esri.Geocoding.geosearch().addTo(map);
+
+                var results = L.layerGroup().addTo(map);
+
+
+                search.on('results', function (data) {
+                    results.clearLayers();
+
+
+                    for (var i = data.results.length - 1; i >= 0; i--) {
+                        //Extracting values from location object
+                        lat = data.results[i].latlng.lat
+                        lon = data.results[i].latlng.lng
+                        var text = data.results[i].text.split(",")
+                        var cstreet = text[0]
+                        streetNum = cstreet.replace(/[^0-9]/g, '');
+                        street = cstreet.replace(streetNum, '')
+                        city = text[2]
+                        callNum = text[1]
+
+                        results.addLayer(L.marker(data.results[i].latlng))
+                        break;
+                    }
+
+                    
+                })
+
+
+            })
+
+            $("#btnSuccessfulRide").on("click", function () {
+                var am = amount.val()
+
+                var data = {
+
+                    "Destination":
+                        {
+                        "XCoordinate": lat, "YCoordinate": lon, "Address":
+                            {
+                                "Street": street, "StreetNumber": streetNum,
+                                "City": city, "CallNumber": callNum
+                            }
+                    },
+                    "Amount": am
+                }
+
+                $.ajax({
+                    type: "PUT",
+                    url: "https://localhost:44345/api/managerideapi/rideSuccessful?id=" + id,
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert('Success')
+                        window.location.href = 'https://localhost:44345/api/rideapi/getDriverRides'
+                    },
+                    failure: function (response) {
+                        console.log("Failure");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error: " + errorThrown + " , Please try again");
+                    }
+
+                })
+            })
+        })
+    </script>
 </body>
 </html>

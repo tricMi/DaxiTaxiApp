@@ -82,7 +82,7 @@ namespace DaxiTaxi.Controllers.api
 
             double amount = double.Parse(ride.Amount.ToString());
 
-            customersRide.RideState = ERideState.Processed;
+            customersRide.RideState = ERideState.Successful;
             customersRide.Destination = rideLocation;
             customersRide.Amount = amount;
 
@@ -126,7 +126,7 @@ namespace DaxiTaxi.Controllers.api
 
             _taxiContext.Comments.Add(driversComment);
 
-            customersRide.RideState = ERideState.Processed;
+            customersRide.RideState = ERideState.Unsuccessful;
             customersRide.Comment = driversComment;
 
             _taxiContext.SaveChanges();
