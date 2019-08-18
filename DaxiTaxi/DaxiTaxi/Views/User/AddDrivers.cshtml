@@ -1,155 +1,231 @@
-﻿@model DaxiTaxi.ViewModel.NewDriverViewModel
-
-@{
-    ViewBag.Title = "AddDrivers";
+﻿@{
+    Layout = null;
 }
 
-<h2>AddDrivers</h2>
-
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>NewDriverViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.Username, new { htmlAttributes = new { id = "username", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.Name, new { htmlAttributes = new { id = "name", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.Surname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.Password, new { htmlAttributes = new { id = "password", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.JMBG, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.JMBG, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.PhoneNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Driver.Email, new { htmlAttributes = new { id = "email", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Driver.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
+@model DaxiTaxi.ViewModel.NewDriverViewModel
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Driver.Gender)
-            @Html.EnumDropDownListFor(model => model.Driver.Gender, new { id = "enumId" })
-            @Html.ValidationMessageFor(m => m.Driver.Gender)
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/addDrivers.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <title>Profile</title>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Driver.Location.Id);
-            @Html.DropDownListFor(m => m.Driver.Location.Id, new SelectList(Model.Location, "Id", "Id"), "Select location", new { id = "location", @class = "form-control" })
-        </div>
+</head>
+<body>
+    <div class="contact-form">
+        <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
+            <tr>
+                <th style="border:0;">USERNAME</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Driver.Username, new { htmlAttributes = new { id = "username", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;">NAME</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Name, new { htmlAttributes = new { id = "name", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;border-top-style:none;color:white;width:300px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;">SURNAME</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;">JMBG</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Driver.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;">EMAIL</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Email, new { htmlAttributes = new { id = "email", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;background-color:transparent;color:red;color:white;width:300px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;margin-left:30px;">PHONE</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;margin-left:30px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;margin-left:30px;">PASSWORD</th>
+                <td style="border:0;">@Html.PasswordFor(model => model.Driver.Password, new { htmlAttributes = new { id = "password", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+            </tr>
+            <tr>
+                <th style="border:0;">GENDER</th>
+                <td style="border:0;"> @Html.EnumDropDownListFor(model => model.Driver.Gender, new { id = "enumId", style = "background-color:transparent;color:black;" })</td>
+            </tr>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Driver.Vehicle.Id);
-            @Html.DropDownListFor(m => m.Driver.Vehicle.Id, new SelectList(Model.Vehicle, "Id", "TaxiNumber"), "Select location", new { id = "vehicle", @class = "form-control" })
-        </div>
+            <tr>
+                <th style="border:0;margin-left:30px;">VEHICLE</th>
+                <td style="border:0;"> @Html.DropDownListFor(m => m.Driver.Vehicle.Id, new SelectList(Model.Vehicle, "Id", "TaxiNumber"), "Select location", new { id = "vehicle", @class = "form-control", style="width:300px;" })</td>
+            </tr>
 
-        @Html.HiddenFor(m => m.Driver.Id);
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnAdd" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+            <tr>
+                <th style="border:0;">LOCATION</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Location.Address.City, new { htmlAttributes = new { id = "destination", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"> <a href="#myModal" role="button" class="btn btn-primary" id="openMap" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:30px;">Open Map</a></td>
+            </tr>
+
+          
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"> <input type="submit" id="btnAdd" value="AddDriver" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;" /></td>
+            </tr>
+        </table>
+
     </div>
 
 
-@section scripts {
+    @*<h2>AddDrivers</h2>
 
-    <script>
-        
+        @Html.AntiForgeryToken()
 
-        $(document).ready(function () {
-            $("#btnAdd").on("click", function () {
+        <div class="form-horizontal">
+            <h4>NewDriverViewModel</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.Username, new { htmlAttributes = new { id = "username", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-                var username = $("#username").val();
-                var password = $("#password").val();
-                var JMBG = $("#JMBG").val();
-                var phoneNum = $("#phoneNum").val();
-                var name = $("#name").val();
-                var surname = $("#surname").val();
-                var email = $("#email").val();
-                var gender = $("#enumId").val();
-                var location = $("#location").val();
-                var vehicle = $("#vehicle").val();
-                var data =
-                {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.Name, new { htmlAttributes = new { id = "name", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-                    "Username": username,
-                    "Password": password,
-                    "JMBG": JMBG,
-                    "PhoneNumber": phoneNum,
-                    "Name": name,
-                    "Surname": surname,
-                    "Email": email,
-                    "Gender": gender,
-                    "Role": 2,
-                    "Location": { "Id": location },
-                    "Vehicle": { "Id": vehicle }
-                }
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.Surname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.Password, new { htmlAttributes = new { id = "password", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.JMBG, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.JMBG, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Driver.Email, new { htmlAttributes = new { id = "email", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Driver.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
 
-                $.ajax({
-                    type: "POST",
-                    url: "https://localhost:44345/api/userapi/addDrivers",
-                    data: JSON.stringify(data),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        alert("Success");
-                    },
-                    failure: function (response) {
-                        alert("Failure");
-                    },
-                    error: function (response) {
-                        alert("Error: " + response.Email + " , Please try again");
-                    }
+            <div class="form-group">
+                @Html.LabelFor(model => model.Driver.Gender)
+                @Html.EnumDropDownListFor(model => model.Driver.Gender, new { id = "enumId" })
+                @Html.ValidationMessageFor(m => m.Driver.Gender)
+            </div>
 
+            <div class="form-group">
+                @Html.LabelFor(m => m.Driver.Location.Id);
+                @Html.DropDownListFor(m => m.Driver.Location.Id, new SelectList(Model.Location, "Id", "Id"), "Select location", new { id = "location", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Driver.Vehicle.Id);
+                @Html.DropDownListFor(m => m.Driver.Vehicle.Id, new SelectList(Model.Vehicle, "Id", "TaxiNumber"), "Select location", new { id = "vehicle", @class = "form-control" })
+            </div>
+
+            @Html.HiddenFor(m => m.Driver.Id);
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="btnAdd" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>*@
+
+
+    @section scripts {
+
+        @*<script>
+
+
+                $(document).ready(function () {
+                    $("#btnAdd").on("click", function () {
+
+                        var username = $("#username").val();
+                        var password = $("#password").val();
+                        var JMBG = $("#JMBG").val();
+                        var phoneNum = $("#phoneNum").val();
+                        var name = $("#name").val();
+                        var surname = $("#surname").val();
+                        var email = $("#email").val();
+                        var gender = $("#enumId").val();
+                        var location = $("#location").val();
+                        var vehicle = $("#vehicle").val();
+                        var data =
+                        {
+
+                            "Username": username,
+                            "Password": password,
+                            "JMBG": JMBG,
+                            "PhoneNumber": phoneNum,
+                            "Name": name,
+                            "Surname": surname,
+                            "Email": email,
+                            "Gender": gender,
+                            "Role": 2,
+                            "Location": { "Id": location },
+                            "Vehicle": { "Id": vehicle }
+                        }
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: "https://localhost:44345/api/userapi/addDrivers",
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                alert("Success");
+                            },
+                            failure: function (response) {
+                                alert("Failure");
+                            },
+                            error: function (response) {
+                                alert("Error: " + response.Email + " , Please try again");
+                            }
+
+                        })
+                    })
                 })
-            })
-        })
-    </script>
-}
+            </script>*@
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+  </body>
+</html>

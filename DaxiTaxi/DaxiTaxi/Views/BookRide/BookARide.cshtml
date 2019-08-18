@@ -52,13 +52,13 @@
         </div>
 
         <div class="contact-form">
-            <h4 style="text-align:center;color:red;font-weight:bold;">Book A Ride</h4>
+            <h4 style="text-align:center;color:#990000;font-weight:bold;">Book A Ride</h4>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group" style="margin-top:30px;">
                 @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "form-control", style = "width:300px;height:30px;margin-left:10px;color:red;background-color:transparent;border:0;border-bottom: 1px solid red;", placeholder = "Date" } })
+                    @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "form-control", style = "width:300px;height:30px;margin-left:10px;color:#990000;background-color:transparent;border:0;border-bottom: 1px solid #990000;", placeholder = "Date" } })
                     @Html.ValidationMessageFor(model => model.OrderDateTime, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,7 +66,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Customer.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "width:300px;height:30px;margin-left:100px;color:red;margin-bottom:20px;", placeholder = "Customer"  } })
+                    @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "width:300px;height:30px;margin-left:100px;color:#990000;margin-bottom:20px;", placeholder = "Customer"  } })
                     @Html.ValidationMessageFor(model => model.Customer.Username, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -75,24 +75,24 @@
 
                 @Html.LabelFor(model => model.CustomerLocation.Address, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:100px;color:red;margin-top:30px;", placeholder = "Your Current Location"  } })
+                    @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:100px;color:#990000;margin-top:30px;", placeholder = "Your Current Location"  } })
                     @Html.ValidationMessageFor(model => model.CustomerLocation, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:red;background-color:transparent;border:none;margin-top:30px;margin-left:100px;">Open Map</a>
+                    <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:30px;margin-left:100px;">Open Map</a>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-5">
-                    <input type="submit" id="btnCancelRide" value="Cancel" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:100px;margin-left:-80px;height:35px;" />
+                    <input type="submit" id="btnCancelRide" value="Cancel" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:100px;margin-left:-80px;height:35px;" />
                 </div>
                 <div class="col-md-offset-2 col-md-5">
                     
-                    <input type="submit" id="btnBookRide" value="Book" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:-60px;margin-left:200px;height:35px;" />
+                    <input type="submit" id="btnBookRide" value="Book" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:-60px;margin-left:200px;height:35px;" />
                 </div>
             </div>
 
@@ -199,7 +199,7 @@
                                         contentType: "application/json; charset=utf-8",
                                         success: function (response) {
                                             alert('Success')
-                                            // window.location.href = '~/User/Login'
+                                             window.location.href = "https://localhost:44345/Ride/UserPage"
                                         },
                                         failure: function (response) {
                                             console.log("Failure");

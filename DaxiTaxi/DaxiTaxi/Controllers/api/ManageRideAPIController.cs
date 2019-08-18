@@ -19,9 +19,11 @@ namespace DaxiTaxi.Controllers.api
             _taxiContext = new TaxiAppContext();
         }
 
+        /* --- Process ride option available for admins --- */
+
         [HttpPut]
-        [Route("api/managerideapi/acceptRide")]
-        public IHttpActionResult AcceptRide(string id, string driverId)
+        [Route("api/managerideapi/processRide")]
+        public IHttpActionResult ProcessRide(string id, string driverId)
         {
             int rideId = int.Parse(id);
             int driversId = int.Parse(driverId);
@@ -41,6 +43,73 @@ namespace DaxiTaxi.Controllers.api
 
             return Ok();
         }
+
+
+        [HttpPut]
+        [Route("api/managerideapi/acceptRide")]
+        public IHttpActionResult AcceptRide(string id)
+        {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var uId = int.Parse(userId);
+
+            var currentUser = (Driver)_taxiContext.Users.Find(uId, userUsername);
+
+
+            int rideId = int.Parse(id);
+            var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == rideId);
+
+            customersRide.RideState = ERideState.Accepted;
+            customersRide.Driver = currentUser;
+
+            _taxiContext.SaveChanges();
+
+            return Ok();
+        }
+
+        /* --- Customer cancel ride option --- */
+
+        [HttpPut]
+        [Route("api/managerideapi/cancelRide")]
+        public IHttpActionResult CancelRide([FromUri]string id, [FromBody]Ride ride)
+        {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var uId = int.Parse(userId);
+
+            var currentUser = (Customer)_taxiContext.Users.Find(uId, userUsername);
+
+            int Id = int.Parse(id);
+
+            var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == Id);
+
+            if (customersRide == null)
+            {
+                return BadRequest();
+            }
+
+            DateTime current = DateTime.Now;
+            var rate = int.Parse(ride.Comment.Rate.ToString());
+
+            Comment customersComment = new Comment
+            {
+                Description = ride.Comment.Description,
+                PublishDate = current,
+                UserThatLeftComment = currentUser,
+                Rate = rate
+            };
+
+            _taxiContext.Comments.Add(customersComment);
+
+            customersRide.RideState = ERideState.Canceled;
+            customersRide.Comment = customersComment;
+
+            _taxiContext.SaveChanges();
+
+            return Ok();
+        }
+
+        /* --- Successful ride state change method with updated destination and cost fields --- */
 
         [HttpPut]
         [Route("api/managerideapi/rideSuccessful")]
@@ -129,6 +198,39 @@ namespace DaxiTaxi.Controllers.api
 
             customersRide.RideState = ERideState.Unsuccessful;
             customersRide.Comment = driversComment;
+
+            _taxiContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("api/managerideapi/leaveComment")]
+        public IHttpActionResult LeaveComment([FromUri]string id, [FromBody]Ride ride)
+        {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var uId = int.Parse(userId);
+
+            var currentUser = _taxiContext.Users.Find(uId, userUsername);
+
+            DateTime current = DateTime.Now;
+            var rate = int.Parse(ride.Comment.Rate.ToString());
+
+            Comment customerComment = new Comment
+            {
+                Description = ride.Comment.Description,
+                PublishDate = current,
+                UserThatLeftComment = currentUser,
+                Rate = rate
+            };
+
+            _taxiContext.Comments.Add(customerComment);
+
+            int rideId = int.Parse(id);
+            var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == rideId);
+
+            customersRide.Comment = customerComment;
 
             _taxiContext.SaveChanges();
 

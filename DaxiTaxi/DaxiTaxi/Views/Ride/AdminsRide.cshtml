@@ -11,72 +11,148 @@
     <title>Admin Rides</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/CustomersRide.css">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+        #commentModal {
+            top: 10%;
+        }
+    </style>
 </head>
 <body>
+
+    <div id="commentModal" class="modal">
+        <div class="modal-dialog" style="width:500px !important;margin-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="height: 200px;width: 500px;">
+                    <div class="rating" style="padding-bottom: 10px;">
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:20px;cursor:pointer;" class="fa fa-star checked"></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one" style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one" style="font-size:20px;cursor:pointer;" class="fa fa-star "></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one" style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one" style="font-size:20px;cursor:pointer;" class="fa fa-star"></span>
+                    </div>
+                    <form id="updateeventsform2" class="form-horizontal" style="margin-left:10px;">
+                        <div class="form-group">
+                            <textarea class="form-control" id='comment' style="width: 98%;height:140px" placeholder="Leave a comment here..."></textarea>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="contact-form">
         <img src="../../Images/taxi-48.png" class="avatar">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group" style="margin-bottom:50px;">
-            @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "control-label col-md-2", style = "background:transparent;border:0;text-align:center;color:white;font-size:20px;", @readonly = "readonly" } })
+            @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "control-label col-md-2", style = "background:transparent;border:0;text-align:center;color: #990000;font-size:20px;", @readonly = "readonly" } })
         </div>
 
-        <div class="form-group" style="float:left;">
-            @Html.LabelFor(model => model.Customer.Username, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "dispatcher", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;margin-bottom:-20px;", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.Customer.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
+            <tr>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">CUSTOMER</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;color:white;width:300px;color:#990000;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">LOCATION</th>
+                <td style="border:0;">@Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;color:white;width:300px;color:#990000;" } })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">COST</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;width:300px;background-color:transparent;color:#990000;" } })</td>
+            </tr>
 
 
-        <div class="form-group">
+            <tr>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">RIDE STATE</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
+            </tr>
 
-            @Html.LabelFor(model => model.CustomerLocation.Address, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerLocation.Address.Street, new { htmlAttributes = new { id = "currentLocation", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.CustomerLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <tr>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">DRIVER</th>
+                <td style="border:0;"> <select class="form-control" id="driverDropdown" name="driverDropdown" style="width:300px;float:left;"></select></td>
+            </tr>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RideState, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:15px;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;color:white;", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group" style="padding-top:10px;">
-            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2", style = "color:white;margin-top:25px;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "width:300px;height:30px;margin-left:50px;margin-top:15px;color:white;", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <label style="color:white;margin-top:15px;height:30px;margin-right:330px;padding-top:30px;margin-left:30px;float:left;">Driver</label>
-        <form id="myForm" style="margin-left:150px;margin-top:20px;">
-            <select class="form-control" id="driverDropdown" name="driverDropdown" style="width:300px;float:left;"></select>
-        </form>
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"><a href="#commentModal" role="button" class="btn btn-primary" id="viewComment" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:20px;">View Comment</a></td>
+            </tr>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnAssignRide" value="Assign Ride" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:100px;margin-left:50px;" />
-            </div>
-        </div>
+
+            <tr>
+                <th style="border:0;"></th>
+                <td style="border:0;"> <input type="submit" id="btnAssignRide" value="Assign Ride" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:50px;margin-left:10px;" /></td>
+            </tr>
+
+
+        </table>
+
+
 
     </div>
 
     <script>
+
         $("#btnAssignRide").attr("disabled", true);
+        $('#viewComment').hide()
+
         var id = window.location.search.slice(1).split('&')[0].split('=')[1];
         var dispatecher;
         var driverId;
+        var isCustomer;
+
+        var counter;
+        var commentDesc;
+
+        $('#viewComment').on('click', function () {
+            color()
+            $('#comment').val(commentDesc)
+        });
+
+
+        function color() {
+            if (counter == 1) {
+                document.getElementById("1one").style.color = "orange";
+            } else if (counter == 2) {
+                document.getElementById("1one").style.color = "orange";
+                document.getElementById("2one").style.color = "orange";
+            } else if (counter == 3) {
+                document.getElementById("1one").style.color = "orange";
+                document.getElementById("2one").style.color = "orange";
+                document.getElementById("3one").style.color = "orange";
+            } else if (counter == 4) {
+                document.getElementById("1one").style.color = "orange";
+                document.getElementById("2one").style.color = "orange";
+                document.getElementById("3one").style.color = "orange";
+                document.getElementById("4one").style.color = "orange";
+
+            } else if (counter == 5) {
+                document.getElementById("1one").style.color = "orange";
+                document.getElementById("2one").style.color = "orange";
+                document.getElementById("3one").style.color = "orange";
+                document.getElementById("4one").style.color = "orange";
+                document.getElementById("5one").style.color = "orange";
+
+            }
+        }
 
         $(document).ready(function () {
 
@@ -84,7 +160,7 @@
             var currentLocation = $("#currentLocation")
             var cost = $("#amount")
             var state = $("#state")
-            var admin = $("#dispatcher")
+            var customer = $("#customer")
             var driver = $("#driverDropdown")
 
 
@@ -103,32 +179,43 @@
                         response.CustomerLocation.Address.City)
 
                     cost.val(response.Amount)
-                    admin.val(response.Customer.Username)
+                    isCustomer = (response.Customer != null) ? (customer.val(response.Customer.Username)) : (customer.val(""))
                     state.val(response.RideState)
 
-                    dispatcher = (response.Dispatcher != null) ? (date.val(response.Dispatcher.Username + " - " + response.OrderDateTime)) :  (date.val(response.OrderDateTime))
+                    if (response.RideState == 'Canceled') {
+                        $("#btnAssignRide").attr("disabled", true);
+                    }
+
+                    if (response.Comment != null) {
+                        $('#viewComment').show()
+                        $("#btnAssignRide").hide()
+                        counter = response.Comment.Rate
+                        commentDesc = response.Comment.Description
+                    }
+
+                    dispatcher = (response.Dispatcher != null) ? (date.val(response.Dispatcher.Username + " - " + response.OrderDateTime)) : (date.val(response.OrderDateTime))
 
                     if (response.Driver != null) {
                         var s = '<option value="' + response.Driver.Id + '">' + response.Driver.Username + '</option>';
                         driver.html(s)
                     } else {
-                            $("#btnAssignRide").attr("disabled", false);
-                            $.ajax({  
-                                type: "GET",  
-                                url: "https://localhost:44345/api/rideapi/available",  
-                                data: "{}",  
-                                success: function (data) {
-                                    console.log(data)
-                                    var s; 
-                                    for (var i = 0; i < data.length; i++) {  
-                                        s += '<option value="' + data[i].Id + '">' + data[i].Username + '</option>';  
-                                    }  
-                                    $("#driverDropdown").html(s);  
+                        $("#btnAssignRide").attr("disabled", false);
+                        $.ajax({
+                            type: "GET",
+                            url: "https://localhost:44345/api/rideapi/available",
+                            data: "{}",
+                            success: function (data) {
+                                console.log(data)
+                                var s;
+                                for (var i = 0; i < data.length; i++) {
+                                    s += '<option value="' + data[i].Id + '">' + data[i].Username + '</option>';
+                                }
+                                $("#driverDropdown").html(s);
 
-                                    
-                                }  
-                            });  
-  
+
+                            }
+                        });
+
                     }
 
                 },
@@ -141,7 +228,7 @@
                 }
 
             })
-  
+
         })
 
         $(document).ready(function () {
@@ -151,33 +238,33 @@
                 if (driversId != null) {
                     driverId = driversId
                     console.log(driverId)
-                   
+
                 }
                 console.log("In function" + driverId)
-                
-                 $("#btnAssignRide").on("click", function () {
 
-                        $.ajax({
+                $("#btnAssignRide").on("click", function () {
 
-                            type: "PUT",
-                            url: "https://localhost:44345/api/managerideapi/acceptRide?id=" + id + '&driverId=' + driverId,
-                            contentType: "application/json; charset=utf-8",
-                            success: function (response) {
-                                console.log("Success");
-                                window.location.href = https://localhost:44345/Ride/AdminPage
-                            },
-                            failure: function (response) {
-                                console.log("Failure");
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                alert("Error: " + errorThrown + " , Please try again");
-                            }
+                    $.ajax({
 
-                        })
+                        type: "PUT",
+                        url: "https://localhost:44345/api/managerideapi/processRide?id=" + id + '&driverId=' + driverId,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            console.log("Success");
+                            window.location.href = 'https://localhost:44345/Ride/AdminPage'
+                        },
+                        failure: function (response) {
+                            console.log("Failure");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("Error: " + errorThrown + " , Please try again");
+                        }
+
                     })
+                })
 
             })
-          
+
         })
 
 

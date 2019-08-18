@@ -1,7 +1,6 @@
 ﻿body {
     margin: 0;
     padding: 0;
-    color: #990000;
 }
 
     body:before {
@@ -25,20 +24,18 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 600px;
-    height: 560px;
-    padding: 80px 40px;
+    width: 700px;
+    height: 600px;
+    padding: 20px 10px;
     box-sizing: border-box;
-    background: white;
-    opacity:0.9;
-    border-radius:20px;
+    background: rgba(168, 166, 166, 0.575);
 }
 
 .avatar {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    border-radius: 30%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
     overflow: hidden;
     top: calc(-80px/2);
     left: calc(50% - 40px);
@@ -60,17 +57,16 @@
 }
 
 .contact-form input {
-    width: 100%;
+
     margin-bottom: 10px;
 }
 
     .contact-form input[type="text"],
     .contact-form input[type="password"] {
         border: none;
-        border-bottom: 1px solid #990000;
+        border-bottom: 1px solid red;
         background: transparent;
         outline: none;
-        height: 40px;
         color: red;
         font-size: 16px;
     }

@@ -35,7 +35,7 @@
 
     <div class="container" style="width:1000px;margin-top:30px;">
         <h3 class="text-center" style="color:white">Booked Tickets</h3>
-        <table class="table table-borderless" id="customerRides" style="background-color:white; opacity: 0.8;color: red;border-radius:10px;">
+        <table class="table table-borderless" id="customerRides" style="background-color:white;color: red;border-radius:10px;">
             <thead>
                 <tr>
                     <th>Driver</th>
@@ -79,14 +79,17 @@
                         }
                     },
                     {
-                        data: "Customer.Username"
+                        data: "Customer.Username",
+                        defaultContent: ""
                     },
 
                     {
                         data: "CustomerLocation.Address.City"
                     },
                     {
-                        data: "Destination"
+                        data: "Destination.Address.Street",
+                        defaultContent: "",
+                       
                     },
                     {
                         data: "Amount"

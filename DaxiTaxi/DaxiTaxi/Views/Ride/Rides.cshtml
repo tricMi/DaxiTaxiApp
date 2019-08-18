@@ -34,7 +34,7 @@
 
     <div class="container" style="width:1000px;margin-top:30px;">
         <h3 class="text-center" style="color:white">Booked Tickets</h3>
-        <table class="table table-borderless" id="customerRides" style="background-color:white; opacity: 0.8;color: red;border-radius:10px;">
+        <table class="table table-borderless" id="customerRides" style="background-color:white; color: red;border-radius:10px;">
             <thead>
                 <tr>
                     <th>Admin</th>
@@ -60,10 +60,12 @@
         $(document).ready(function () {
             $('#customerRides').DataTable({
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 ordering: true,
                 paging: true,
                 searching: true,
+                pageLength : 5,
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']],
                 ajax: {
                     url: "https://localhost:44345/api/rideapi",
                     dataSrc: ""
@@ -88,10 +90,10 @@
                         defaultContent: ""
                     },
                     {
-                        data: "CustomerLocation.Address.City"
+                        data: "CustomerLocation.Address.Street"
                     },
                     {
-                        data: "Destination",
+                        data: "Destination.Address.Street",
                         defaultContent: ""
                     },
                     {

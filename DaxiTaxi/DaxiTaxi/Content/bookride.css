@@ -31,31 +31,30 @@ body:before {
     box-sizing: border-box;
     background: white;
     border-radius: 30px;
-    opacity: 0.8;
+    opacity: 0.9;
     z-index: 1;
 }
 
 
-.contact-form h4 {
-    margin: 0;
-    margin-bottom:50px;
-    padding-bottom:20px;
-    padding: 0 0 0px;
-    color: #fff;
-    text-align: center;
-    text-transform: uppercase;
-}
+    .contact-form h4 {
+        margin: 0;
+        margin-bottom: 50px;
+        padding-bottom: 20px;
+        padding: 0 0 0px;
+        color: #990000;
+        text-align: center;
+        text-transform: uppercase;
+    }
 
 
-.contact-form input {
-
-    margin-bottom: 0px;
-    border: none;
-    border-bottom: 1px solid red;
-    background: transparent;
-    outline: none;
-    height: 40px;
-    color: red;
-    font-size: 16px;
-}
+    .contact-form input {
+        margin-bottom: 0px;
+        border: none;
+        border-bottom: 1px solid #990000;
+        background: transparent;
+        outline: none;
+        height: 40px;
+        color: #990000;
+        font-size: 16px;
+    }
 

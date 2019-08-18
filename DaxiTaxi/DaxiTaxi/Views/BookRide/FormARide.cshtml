@@ -51,33 +51,33 @@
     </div>
 
     <div class="contact-form">
-        <h4 style=" margin: 0;padding: 0 0 30px;color:red;text-align: center;text-transform: uppercase;">Book A Ride</h4>
+        <h4 style=" margin: 0;padding: 0 0 30px;color:#990000;text-align: center;text-transform: uppercase;font-weight:bold;">Book A Ride</h4>
         <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
             <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">ADMIN</th>
-                <td style="border:0;">@Html.EditorFor(model => model.Dispatcher.Surname, new { htmlAttributes = new { id = "admin", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:35px;color:white;width:300px;color:red;" } })</td>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">ADMIN</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Dispatcher.Surname, new { htmlAttributes = new { id = "admin", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;width:300px;color:#990000;" } })</td>
             </tr>
 
             <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">DATE</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:35px;width:300px;background-color:transparent;color:red;" } })</td>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">DATE</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.OrderDateTime, new { htmlAttributes = new { id = "date", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;width:300px;background-color:transparent;color:#990000;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">DRIVERS</th>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">DRIVERS</th>
                 <td style="border:0;"><select class="form-control" id="driverDropdown" name="driverDropdown" style="width:300px;float:left;"></select></td>
             </tr>
             <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">TAXI LOCATION</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.CustomerLocation.Address.City, new { htmlAttributes = new { id = "location", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;width:300px;height:35px;color:red;" } })</td>
+                <th style="border:0;color:#990000;padding-top:20px;padding-left:50px;">TAXI LOCATION</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.CustomerLocation.Address.City, new { htmlAttributes = new { id = "location", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
             </tr>
             <tr>
                 <th style="border:0;"></th>
-                <td style="border:0;"><a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:red;background-color:transparent;border:none;margin-top:30px;">Open Map</a></td>
+                <td style="border:0;"><a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:30px;">Open Map</a></td>
             </tr>
             <tr>
                 <th style="border:0;"></th>
-                <td style="border:0;"><input type="submit" id="btnCancelRide" value="Cancel" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:60px;margin-left:-130px;height:35px;" /></td>
-                <td style="border:0"> <input type="submit" id="btnBookRide" value="Book" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;margin-top:60px;margin-left:-190px;height:35px;" /></td>
+                <td style="border:0;"><input type="submit" id="btnCancelRide" value="Cancel" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:60px;margin-left:-130px;height:35px;" /></td>
+                <td style="border:0"> <input type="submit" id="btnBookRide" value="Book" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:60px;margin-left:-190px;height:35px;" /></td>
             </tr>
             
 
@@ -205,26 +205,32 @@
                                         "Driver": { "Id": driverId }
                                     }
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: "https://localhost:44345/api/bookarideapi/formride",
-                                    data: JSON.stringify(data),
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function (response) {
-                                        alert('Success')
-                                        // window.location.href = '~/User/Login'
-                                    },
-                                    failure: function (response) {
-                                        console.log("Failure");
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        alert("Error: " + errorThrown + " , Please try again");
-                                    }
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "https://localhost:44345/api/bookarideapi/formride",
+                                            data: JSON.stringify(data),
+                                            contentType: "application/json; charset=utf-8",
+                                            success: function (response) {
+                                                alert('Success')
+                                                window.location.href = 'https://localhost:44345/Ride/AdminPage'
+                                            },
+                                            failure: function (response) {
+                                                console.log("Failure");
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                alert("Error: " + errorThrown + " , Please try again");
+                                            }
 
+                                        })
                                 })
-                         })
+
 
                     })
+
+                    
+                        $("#btnCancelRide").on("click", function () {
+                             window.location.href = 'https://localhost:44345/Ride/AdminPage'
+                        })
                        
 
                 })

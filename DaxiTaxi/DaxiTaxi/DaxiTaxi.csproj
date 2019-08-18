@@ -246,6 +246,22 @@
     <Compile Include="Migrations\201908131859004_InsertFormedRide.Designer.cs">
       <DependentUpon>201908131859004_InsertFormedRide.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908171444342_AddMoreDrivers1.cs" />
+    <Compile Include="Migrations\201908171444342_AddMoreDrivers1.Designer.cs">
+      <DependentUpon>201908171444342_AddMoreDrivers1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908171503052_DeleteRide.cs" />
+    <Compile Include="Migrations\201908171503052_DeleteRide.Designer.cs">
+      <DependentUpon>201908171503052_DeleteRide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908180814131_ChangeSomeDataInDb.cs" />
+    <Compile Include="Migrations\201908180814131_ChangeSomeDataInDb.Designer.cs">
+      <DependentUpon>201908180814131_ChangeSomeDataInDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908180822555_DeleteSomeData.cs" />
+    <Compile Include="Migrations\201908180822555_DeleteSomeData.Designer.cs">
+      <DependentUpon>201908180822555_DeleteSomeData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -266,6 +282,7 @@
     <Compile Include="ViewModel\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\addDrivers.css" />
     <Content Include="Content\bookride.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -641,6 +658,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908131859004_InsertFormedRide.resx">
       <DependentUpon>201908131859004_InsertFormedRide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908171444342_AddMoreDrivers1.resx">
+      <DependentUpon>201908171444342_AddMoreDrivers1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908171503052_DeleteRide.resx">
+      <DependentUpon>201908171503052_DeleteRide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908180814131_ChangeSomeDataInDb.resx">
+      <DependentUpon>201908180814131_ChangeSomeDataInDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908180822555_DeleteSomeData.resx">
+      <DependentUpon>201908180822555_DeleteSomeData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

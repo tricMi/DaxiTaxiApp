@@ -40,7 +40,7 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            return _taxiContext.Rides.Include("CustomerLocation").Include("CustomerLocation.Address").Include("Driver").
+            return _taxiContext.Rides.Include("CustomerLocation").Include("Dispatcher").Include("CustomerLocation.Address").Include("Driver").
                         Include("Customer").Include("Comment").Include("Destination").ToList();
         }
 
@@ -170,7 +170,9 @@ namespace DaxiTaxi.Controllers.api
         {
             var id = int.Parse(Id);
             var ride = _taxiContext.Rides.Include("CustomerLocation").
-                Include("CustomerLocation.Address").Include("Customer").Include("Dispatcher").Include("Driver").SingleOrDefault(r => r.Id == id);
+                Include("CustomerLocation.Address").Include("Customer").Include("Dispatcher").
+                Include("Driver").Include("Comment").Include("Destination").Include("Destination.Address").
+                SingleOrDefault(r => r.Id == id);
 
             if(ride == null)
             {
@@ -180,27 +182,7 @@ namespace DaxiTaxi.Controllers.api
             return ride;
         }
 
-        /* --- Customer cancel ride option --- */
-
-        [HttpPut]
-        [Route("api/rideapi/cancelRide")]
-        public IHttpActionResult CancelRide(string id)
-        {
-            int Id = int.Parse(id);
-
-            var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == Id);
-
-            if(customersRide == null)
-            {
-                return BadRequest();
-            }
-
-            customersRide.RideState = ERideState.Canceled;
-
-            _taxiContext.SaveChanges();
-
-            return Ok();
-        }
+        
 
         /* --- Method that returns only available drivers --- */
 

@@ -127,24 +127,49 @@ namespace DaxiTaxi.Controllers.api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            var id = int.Parse(driver.Location.Id.ToString());
-            var id2 = int.Parse(driver.Vehicle.Id.ToString());
+            var idVehicle = int.Parse(driver.Vehicle.Id.ToString());
 
-            Location location = _taxiContext.Locations.SingleOrDefault(l => l.Id == id);
-            Vehicle vehicle = _taxiContext.Vehicles.SingleOrDefault(l => l.Id == id2);
+            int streetNum = int.Parse(driver.Location.Address.StreetNumber.ToString());
+            int callNum = int.Parse(driver.Location.Address.CallNumber.ToString());
 
-            var newDriver = new Driver();
-            newDriver.Name = driver.Name;
-            newDriver.Surname = driver.Surname;
-            newDriver.Email = driver.Email;
-            newDriver.Username = driver.Username;
-            newDriver.Password = driver.Password;
-            newDriver.PhoneNumber = driver.PhoneNumber;
-            newDriver.JMBG = driver.Name;
-            newDriver.Gender = driver.Gender;
-            newDriver.Role = driver.Role;
-            newDriver.Location = location;
-            newDriver.Vehicle = vehicle;
+            Address locationAddress = new Address
+            {
+                City = driver.Location.Address.City,
+                CallNumber = callNum,
+                Street = driver.Location.Address.Street,
+                StreetNumber = streetNum
+            };
+
+            _taxiContext.Addresses.Add(locationAddress);
+
+            double xcoordinate = double.Parse(driver.Location.XCoordinate.ToString());
+            double ycoordinate = double.Parse(driver.Location.YCoordinate.ToString());
+
+            Location driverLocation = new Location
+            {
+                XCoordinate = xcoordinate,
+                YCoordinate = ycoordinate,
+                Address = locationAddress
+            };
+
+            _taxiContext.Locations.Add(driverLocation);
+
+            Vehicle vehicle = _taxiContext.Vehicles.SingleOrDefault(l => l.Id == idVehicle);
+
+            var newDriver = new Driver
+            {
+                Name = driver.Name,
+                Surname = driver.Surname,
+                Email = driver.Email,
+                Username = driver.Username,
+                Password = driver.Password,
+                PhoneNumber = driver.PhoneNumber,
+                JMBG = driver.Name,
+                Gender = driver.Gender,
+                Role = driver.Role,
+                Location = driverLocation,
+                Vehicle = vehicle,
+            };
 
             _taxiContext.Users.Add(newDriver);
             _taxiContext.SaveChanges();
