@@ -202,7 +202,7 @@
                         $("#btnAssignRide").attr("disabled", false);
                         $.ajax({
                             type: "GET",
-                            url: "https://localhost:44345/api/rideapi/available",
+                            url: "https://localhost:44345/api/rideapi/available?id=" + id,
                             data: "{}",
                             success: function (data) {
                                 console.log(data)

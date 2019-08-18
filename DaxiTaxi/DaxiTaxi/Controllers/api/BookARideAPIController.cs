@@ -31,6 +31,11 @@ namespace DaxiTaxi.Controllers.api
 
             var currentUser = (Customer)_taxiContext.Users.Find(id, userUsername);
 
+            if(currentUser.Role != ERole.CUSTOMER)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
             if (ride == null)
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -94,6 +99,11 @@ namespace DaxiTaxi.Controllers.api
             var id = int.Parse(userId);
 
             var currentUser = (Admin)_taxiContext.Users.Find(id, userUsername);
+
+            if (currentUser.Role != ERole.ADMIN)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
 
             if (ride == null)
             {

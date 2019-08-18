@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js"
@@ -25,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <title>Document</title>
     <style>
-         #map {
+        #map {
             position: absolute;
             top: 0%;
             bottom: 0%;
@@ -87,67 +88,71 @@
 
     <div class="contact-form">
         <h4 style=" margin: 0;padding: 0 0 30px;color:#990000;text-align: center;text-transform: uppercase;font-weight:bold;">Ride</h4>
-        <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
-            <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">CUSTOMER</th>
-                <td style="border:0;">@Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;color:white;width:300px;color:#990000;" } })</td>
-            </tr>
 
-            <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">ADMIN</th>
-                <td style="border:0;">@Html.EditorFor(model => model.Dispatcher.Username, new { htmlAttributes = new { id = "admin", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;color:white;width:300px;color:#990000;" } })</td>
-            </tr>
+            <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
 
-            <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">COST</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;width:300px;background-color:transparent;color:#990000;" } })</td>
-            </tr>
+                <tr>
+                    <th style="border:0;color:red;padding-top:20px;padding-left:50px;">CUSTOMER</th>
+                    <td style="border:0;">@Html.EditorFor(model => model.Customer.Username, new { htmlAttributes = new { id = "customer", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;color:white;width:300px;color:#990000;" } })</td>
+                </tr>
 
-            <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">LOCATION</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.CustomerLocation.Address.City, new { htmlAttributes = new { id = "location", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
-            </tr>
+                <tr>
+                    <th style="border:0;color:red;padding-top:20px;padding-left:50px;">ADMIN</th>
+                    <td style="border:0;">@Html.EditorFor(model => model.Dispatcher.Username, new { htmlAttributes = new { id = "admin", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;color:white;width:300px;color:#990000;" } })</td>
+                </tr>
 
-            <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">DESTINATION</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Destination.Address.City, new { htmlAttributes = new { id = "destination", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
-            </tr>
+                <tr>
+                    <th style="border:0;color:red;padding-top:20px;padding-left:50px;">COST</th>
+                    <td style="border:0;"> @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { id = "amount", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:35px;width:300px;background-color:transparent;color:#990000;" } })</td>
+                </tr>
 
-            <tr>
-                <th style="border:0;"></th>
-                <td style="border:0;"><a href="#myModal" role="button" class="btn btn-primary" id="openMap" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:30px;">Open Map</a></td>
-            </tr>
+                <tr>
+                    <th style="border:0;color:red;padding-top:20px;padding-left:50px;">LOCATION</th>
+                    <td style="border:0;"> @Html.EditorFor(model => model.CustomerLocation.Address.City, new { htmlAttributes = new { id = "location", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
+                </tr>
 
-            <tr>
-                <th style="border:0;color:red;padding-top:20px;padding-left:50px;">RIDE STATE</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
-            </tr>
+                <tr>
+                    <th style="border:0;color:red;padding-top:20px;padding-left:50px;">DESTINATION</th>
+                    <td style="border:0;"> @Html.EditorFor(model => model.Destination.Address.City, new { htmlAttributes = new { id = "destination", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
+                </tr>
 
-            <tr>
-                <th style="border:0;"></th>
-                <td style="border:0;"><a href="#commentModal" role="button" class="btn btn-primary" id="leaveComment" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:20px;">Leave a Comment...</a></td>
-            </tr>
+                <tr>
+                    <th style="border:0;"></th>
+                    <td style="border:0;"><a href="#myModal" role="button" class="btn btn-primary" id="openMap" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:30px;">Open Map</a></td>
+                </tr>
 
-            <tr>
-                <th style="border:0;"></th>
-                <td style="border:0;"><a href="#commentModal" role="button" class="btn btn-primary" id="viewComment" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:20px;">View Comment</a></td>
-            </tr>
+                <tr>
+                    <th style="border:0;color:red;padding-top:20px;padding-left:50px;">RIDE STATE</th>
+                    <td style="border:0;"> @Html.EditorFor(model => model.RideState, new { htmlAttributes = new { id = "state", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
+                </tr>
 
-            <tr>
-                <th style="border:0;"></th>
-                <td style="border:0;"><input type="submit" id="btnUnsuccessfulRide" value="Unsuccessful" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:10px;margin-left:-130px;height:35px;" /></td>
-                <td style="border:0"> <input type="submit" id="btnSuccessfulRide" value="Successful" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:10px;margin-left:-190px;height:35px;" /></td>
-            </tr>
+                <tr>
+                    <th style="border:0;"></th>
+                    <td style="border:0;"><a href="#commentModal" role="button" class="btn btn-primary" id="leaveComment" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:20px;">Leave a Comment...</a></td>
+                </tr>
 
-            <tr>
-                <th style="border:0;"></th>
-                <td style="border:0;"><input type="submit" id="btnAcceptRide" value="Accept" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:20px;margin-left:0px;height:35px;" /></td>
-            </tr>
+                <tr>
+                    <th style="border:0;"></th>
+                    <td style="border:0;"><a href="#commentModal" role="button" class="btn btn-primary" id="viewComment" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:20px;">View Comment</a></td>
+                </tr>
+
+                <tr>
+                    <th style="border:0;"></th>
+                    <td style="border:0;"><input type="submit" id="btnUnsuccessfulRide" value="Unsuccessful" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:10px;margin-left:-130px;height:35px;" /></td>
+                    <td style="border:0"> <input type="submit" id="btnSuccessfulRide" value="Successful" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:10px;margin-left:-190px;height:35px;" /></td>
+                </tr>
+
+                <tr>
+                    <th style="border:0;"></th>
+                    <td style="border:0;"><input type="submit" id="btnAcceptRide" value="Accept" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-top:20px;margin-left:0px;height:35px;" /></td>
+                </tr>
 
 
-        </table>
+            </table>
+
     </div>
     <script>
+
         $("#btnAcceptRide").hide()
         $('#viewComment').hide()
         $('#leaveComment').hide()
@@ -221,8 +226,7 @@
 
             })
         }
-
-        
+    
 
         function result() {
             desc = $("#comment").val()
@@ -241,7 +245,6 @@
         
 
         $(document).ready(function () { 
-
  
             var customer = $("#customer")
             var admin = $("#admin")
@@ -377,32 +380,32 @@
                     "Amount": am
                 }
 
-                $.ajax({
-                    type: "PUT",
-                    url: "https://localhost:44345/api/managerideapi/rideSuccessful?id=" + id,
-                    data: JSON.stringify(data),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        alert('Success')
-                        window.location.href = 'https://localhost:44345/Ride/DriverPage'
-                    },
-                    failure: function (response) {
-                        console.log("Failure");
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert("Error: " + errorThrown + " , Please try again");
-                    }
+                    $.ajax({
+                        type: "PUT",
+                        url: "https://localhost:44345/api/managerideapi/rideSuccessful?id=" + id,
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            alert('Success')
+                            window.location.href = 'https://localhost:44345/Ride/DriverPage'
+                        },
+                        failure: function (response) {
+                            console.log("Failure");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("Error: " + errorThrown + " , Please try again");
+                        }
 
-                })
+                    })
 
-
+                
             })
 
 
 
             $("#btnUnsuccessfulRide").on("click", function (e) {
 
-                console.log("are you there")
+             //   console.log("are you there")
 
                 e.preventDefault()
 
@@ -455,6 +458,7 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         console.log("Success");
+                         window.location.href = 'https://localhost:44345/Ride/DriverPage'
                     },
                     failure: function (response) {
                         console.log("Failure");
