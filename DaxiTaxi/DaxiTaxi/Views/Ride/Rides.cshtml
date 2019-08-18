@@ -26,7 +26,7 @@
             <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:820px;padding:20px;margin-bottom:40px;" href="">Book a Ride<span class="sr-only"></span></a>
             <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;" href="~/User/Profile">Profile</a>
             <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:20px;" href="~/Ride/Rides">All Rides</a>
-            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="">Logout</a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="javascript:logout()">Logout</a>
         </div>
     </nav>
 
@@ -57,6 +57,25 @@
     </footer>
 
     <script>
+
+        function logout() {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44345/api/userapi/logout",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location.href = "../Home/Main"
+                },
+                failure: function (response) {
+                    alert("Failure");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Error: " + errorThrown+ " , Please try again");
+                }
+
+            })
+        }
+
         $(document).ready(function () {
             $('#customerRides').DataTable({
                 processing: true,

@@ -24,7 +24,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 700px;
+    width: 550px;
     height: 600px;
     padding: 20px 10px;
     box-sizing: border-box;
@@ -57,14 +57,15 @@
 }
 
 .contact-form input {
-
+    width:80%;
     margin-bottom: 10px;
+    margin-left:30px;
 }
 
     .contact-form input[type="text"],
     .contact-form input[type="password"] {
         border: none;
-        border-bottom: 1px solid red;
+        border-bottom: 1px solid #990000;
         background: transparent;
         outline: none;
         color: red;

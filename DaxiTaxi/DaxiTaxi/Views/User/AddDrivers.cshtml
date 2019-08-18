@@ -11,59 +11,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js"
+            integrity="sha512-1tScwpjXwwnm6tTva0l0/ZgM3rYNbdyMj5q6RSQMbNX6EUMhYDE3pMRGZaT41zHEvLoWEK7qFEJmZDOoDMU7/Q=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/addDrivers.css">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-    <title>Profile</title>
-
+    <title>Add Driver</title>
+    <style>
+        #map {
+            position: absolute;
+            top: 0%;
+            bottom: 0%;
+            left: 0%;
+            right: 0%;
+        }
+    </style>
 </head>
 <body>
+
+    <div id="myModal" class="modal">
+        <div class="modal-dialog" style="width:1000px !important;margin-top: 10px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="height: 500px;">
+                    <div id="map"></div>
+                    <div class="modal-body" id="map-canvas"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="choose">Choose Location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="contact-form">
         <table class="table table-borderless" id="purchasedTicketsTable" style="color: white;">
             <tr>
-                <th style="border:0;">USERNAME</th>
-                <td style="border:0;">@Html.EditorFor(model => model.Driver.Username, new { htmlAttributes = new { id = "username", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+                <th style="border:0;padding-left:30px;">USERNAME</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Driver.Username, new { htmlAttributes = new { id = "username", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:20px;color:white;width:300px;margin-left:30px;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;">NAME</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Name, new { htmlAttributes = new { id = "name", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;border-top-style:none;color:white;width:300px;" } })</td>
+                <th style="border:0;padding-left:30px;">NAME</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Name, new { htmlAttributes = new { id = "name", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:20px;border-top-style:none;color:white;width:300px;margin-left:30px;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;">SURNAME</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+                <th style="border:0;padding-left:30px;">SURNAME</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:20px;color:white;width:300px;margin-left:30px;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;">JMBG</th>
-                <td style="border:0;">@Html.EditorFor(model => model.Driver.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+                <th style="border:0;padding-left:30px;">JMBG</th>
+                <td style="border:0;">@Html.EditorFor(model => model.Driver.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:20px;color:white;width:300px;margin-left:30px;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;">EMAIL</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Email, new { htmlAttributes = new { id = "email", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;background-color:transparent;color:red;color:white;width:300px;" } })</td>
+                <th style="border:0;padding-left:30px;">EMAIL</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Email, new { htmlAttributes = new { id = "email", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:20px;background-color:transparent;color:red;color:white;width:300px;margin-left:30px;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;margin-left:30px;">PHONE</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Driver.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;margin-left:30px;" } })</td>
+                <th style="border:0;padding-left:30px;">PHONE</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;height:20px;color:white;width:300px;margin-left:30px;" } })</td>
             </tr>
             <tr>
-                <th style="border:0;margin-left:30px;">PASSWORD</th>
-                <td style="border:0;">@Html.PasswordFor(model => model.Driver.Password, new { htmlAttributes = new { id = "password", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;width:300px;" } })</td>
+                <th style="border:0;padding-left:30px;">PASSWORD</th>
+                <td style="border:0;"><input type="password" id="password", style="margin-left:30px;"/></td>
             </tr>
             <tr>
-                <th style="border:0;">GENDER</th>
-                <td style="border:0;"> @Html.EnumDropDownListFor(model => model.Driver.Gender, new { id = "enumId", style = "background-color:transparent;color:black;" })</td>
-            </tr>
-
-            <tr>
-                <th style="border:0;margin-left:30px;">VEHICLE</th>
-                <td style="border:0;"> @Html.DropDownListFor(m => m.Driver.Vehicle.Id, new SelectList(Model.Vehicle, "Id", "TaxiNumber"), "Select location", new { id = "vehicle", @class = "form-control", style="width:300px;" })</td>
+                <th style="border:0;padding-left:30px;">GENDER</th>
+                <td style="border:0;"> @Html.EnumDropDownListFor(model => model.Driver.Gender, new { id = "enumId", style = "background-color:transparent;color:black;margin-left:30px;" })</td>
             </tr>
 
             <tr>
-                <th style="border:0;">LOCATION</th>
-                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Location.Address.City, new { htmlAttributes = new { id = "destination", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;" } })</td>
+                <th style="border:0;padding-left:30px;">VEHICLE</th>
+                <td style="border:0;"> @Html.DropDownListFor(m => m.Driver.Vehicle.Id, new SelectList(Model.Vehicle, "Id", "TaxiNumber"), "Select Vehicle", new { id = "vehicle", @class = "form-control", style = "width:300px;margin-left:30px;" })</td>
+            </tr>
+
+            <tr>
+                <th style="border:0;padding-left:30px;">LOCATION</th>
+                <td style="border:0;"> @Html.EditorFor(model => model.Driver.Location.Address.City, new { htmlAttributes = new { id = "destination", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid #990000;margin-bottom:10xp;width:300px;height:35px;color:#990000;margin-left:30px;" } })</td>
             </tr>
 
             <tr>
@@ -71,161 +104,126 @@
                 <td style="border:0;"> <a href="#myModal" role="button" class="btn btn-primary" id="openMap" data-toggle="modal" style="width:100px;border-radius:20px;color:#990000;background-color:transparent;border:none;margin-top:0px;margin-left:30px;">Open Map</a></td>
             </tr>
 
-          
+
             <tr>
                 <th style="border:0;"></th>
-                <td style="border:0;"> <input type="submit" id="btnAdd" value="AddDriver" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:red;border:none;" /></td>
+                <td style="border:0;"> <input type="submit" id="btnAdd" value="AddDriver" class="btn btn-default" style="width:200px;border-radius:20px;color:white;background-color:#990000;border:none;margin-right:40px;" /></td>
             </tr>
         </table>
 
     </div>
 
 
-    @*<h2>AddDrivers</h2>
+    <script>
 
-        @Html.AntiForgeryToken()
+        var lat;
+        var lon;
+        var street;
+        var streetNum;
+        var callNum;
+        var city;
 
-        <div class="form-horizontal">
-            <h4>NewDriverViewModel</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.Username, new { htmlAttributes = new { id = "username", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.Username, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        $(document).ready(function () {
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.Name, new { htmlAttributes = new { id = "name", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            $('#myModal').on('show.bs.modal', function () {
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.Surname, new { htmlAttributes = new { id = "surname", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.Surname, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                setTimeout(function () {
+                    map.invalidateSize();
+                }, 10);
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.Password, new { htmlAttributes = new { id = "password", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                var map = L.map('map').setView([45.267, 19.833], 12)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.JMBG, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.JMBG, new { htmlAttributes = new { id = "JMBG", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.JMBG, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.PhoneNumber, new { htmlAttributes = new { id = "phoneNum", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.PhoneNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Driver.Email, new { htmlAttributes = new { id = "email", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Driver.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=Ke6IXcQlrAX601uWVfEg', {
+                    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>'
+                }).addTo(map);
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Driver.Gender)
-                @Html.EnumDropDownListFor(model => model.Driver.Gender, new { id = "enumId" })
-                @Html.ValidationMessageFor(m => m.Driver.Gender)
-            </div>
+                var search = L.esri.Geocoding.geosearch().addTo(map);
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Driver.Location.Id);
-                @Html.DropDownListFor(m => m.Driver.Location.Id, new SelectList(Model.Location, "Id", "Id"), "Select location", new { id = "location", @class = "form-control" })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Driver.Vehicle.Id);
-                @Html.DropDownListFor(m => m.Driver.Vehicle.Id, new SelectList(Model.Vehicle, "Id", "TaxiNumber"), "Select location", new { id = "vehicle", @class = "form-control" })
-            </div>
-
-            @Html.HiddenFor(m => m.Driver.Id);
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" id="btnAdd" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>*@
+                var results = L.layerGroup().addTo(map);
 
 
-    @section scripts {
-
-        @*<script>
-
-
-                $(document).ready(function () {
-                    $("#btnAdd").on("click", function () {
-
-                        var username = $("#username").val();
-                        var password = $("#password").val();
-                        var JMBG = $("#JMBG").val();
-                        var phoneNum = $("#phoneNum").val();
-                        var name = $("#name").val();
-                        var surname = $("#surname").val();
-                        var email = $("#email").val();
-                        var gender = $("#enumId").val();
-                        var location = $("#location").val();
-                        var vehicle = $("#vehicle").val();
-                        var data =
-                        {
-
-                            "Username": username,
-                            "Password": password,
-                            "JMBG": JMBG,
-                            "PhoneNumber": phoneNum,
-                            "Name": name,
-                            "Surname": surname,
-                            "Email": email,
-                            "Gender": gender,
-                            "Role": 2,
-                            "Location": { "Id": location },
-                            "Vehicle": { "Id": vehicle }
-                        }
+                search.on('results', function (data) {
+                    results.clearLayers();
 
 
-                        $.ajax({
-                            type: "POST",
-                            url: "https://localhost:44345/api/userapi/addDrivers",
-                            data: JSON.stringify(data),
-                            contentType: "application/json; charset=utf-8",
-                            success: function (response) {
-                                alert("Success");
-                            },
-                            failure: function (response) {
-                                alert("Failure");
-                            },
-                            error: function (response) {
-                                alert("Error: " + response.Email + " , Please try again");
-                            }
+                    for (var i = data.results.length - 1; i >= 0; i--) {
+                        //Extracting values from location object
+                        lat = data.results[i].latlng.lat
+                        lon = data.results[i].latlng.lng
+                        var text = data.results[i].text.split(",")
+                        var cstreet = text[0]
+                        streetNum = cstreet.replace(/[^0-9]/g, '');
+                        street = cstreet.replace(streetNum, '')
+                        city = text[2]
+                        callNum = text[1]
 
-                        })
-                    })
+                        results.addLayer(L.marker(data.results[i].latlng))
+                        break;
+
+                    }
                 })
-            </script>*@
-    }
+            })
 
-  </body>
+             $("#choose").on("click", function () {
+                $("#destination").val(street + " " + streetNum + " " + callNum + " " + city)
+             })
+
+            $("#btnAdd").on("click", function () {
+
+
+                var username = $("#username").val();
+                var password = $("#password").val();
+                var JMBG = $("#JMBG").val();
+                var phoneNum = $("#phoneNum").val();
+                var name = $("#name").val();
+                var surname = $("#surname").val();
+                var email = $("#email").val();
+                var gender = $("#enumId").val();
+                var vehicle = $("#vehicle").val();
+
+                var data =
+                {
+
+                    "Username": username,
+                    "Password": password,
+                    "JMBG": JMBG,
+                    "PhoneNumber": phoneNum,
+                    "Name": name,
+                    "Surname": surname,
+                    "Email": email,
+                    "Gender": gender,
+                    "Role": 2,
+                    "Location": {  "XCoordinate": lat, "YCoordinate": lon, "Address":
+                                    {
+                                        "Street": street, "StreetNumber": streetNum,
+                                        "City": city, "CallNumber": callNum
+                                    }
+                                },
+                    "Vehicle": { "Id": vehicle }
+                }
+
+                console.log(data)
+                $.ajax({
+                    type: "POST",
+                    url: "https://localhost:44345/api/userapi/addDrivers",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("Success");
+                    },
+                    failure: function (response) {
+                        alert("Failure");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error: " + errorThrown+ " , Please try again");
+                    }
+
+                })
+            })
+        })
+    </script>
+
+
+</body>
 </html>

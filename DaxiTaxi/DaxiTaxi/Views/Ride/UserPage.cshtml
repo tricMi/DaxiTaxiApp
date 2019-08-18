@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:20px;">
             <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:930px;padding:20px;margin-bottom:40px;" href="~/BookRide/BookARide">Book a Ride<span class="sr-only"></span></a>
             <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;" href="~/User/Profile">Profile</a>
-            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="">Logout</a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="javascript:logout()">Logout</a>
         </div>
     </nav>
 
@@ -54,6 +54,25 @@
     </footer>
 
     <script>
+
+        function logout() {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44345/api/userapi/logout",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location.href = "../Home/Main"
+                },
+                failure: function (response) {
+                    alert("Failure");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Error: " + errorThrown+ " , Please try again");
+                }
+
+            })
+        }
+
         $(document).ready(function () {
             $('#customerRides').DataTable({
                 processing: true,
@@ -77,10 +96,10 @@
                         defaultContent: ""
                     },
                     {
-                        data: "CustomerLocation.Address.City"
+                        data: "CustomerLocation.Address.Street"
                     },
                     {
-                        data: "Destination.Address.Street" + "Destination.Address.StreetNumer" + "Destination.Address.City",
+                        data: "Destination.Address.Street",
                         defaultContent: ""
                     },
                     {

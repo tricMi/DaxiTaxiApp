@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <th style="border:0;">PASSWORD</th>
-                <td style="border:0;">@Html.PasswordFor(model => model.Password, new { htmlAttributes = new { id = "password", @class = "form-control", style = "border:0;outline:0;border-bottom:1px solid red;margin-bottom:10xp;height:20px;color:white;" } })</td>
+                <td style="border:0;"><input type="password" id="password"  /></td>
             </tr>
             <tr>
                 <th style="border:0;">GENDER</th>
@@ -88,7 +88,7 @@
                 },
                 error: function (response) {
                     alert("Error")
-                    window.location.href = "~/Home/Main"
+                    window.location.href = "../Home/Main"
                     console.log("Error: " + " , Please try again");
                 }
 
@@ -116,8 +116,8 @@
                     "Name": name,
                     "Surname": surname,
                     "Email": email,
-                    "Gender": gender
-                   // "Password": password
+                    "Gender": gender,
+                    "Password": password
                 }
 
 

@@ -23,10 +23,11 @@
     <nav class="navbar navbar-expand-lg" style="background-color: #c00c0c;min-height:60px;">
         <a class="navbar-brand" style="color: white; font-family: 'Poppins', sans-serif; font-size: 23px; font-weight: bold;margin-left:30px;text-decoration:none;display:inline-block;padding-top:15px;" href="#">DaxiTaxi</a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown" style="display:inline;margin-top:20px;">
-            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:820px;padding:20px;margin-bottom:40px;" href="~/BookRide/FormARide">Form a Ride<span class="sr-only"></span></a>
-            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;" href="~/User/Profile">Profile</a>
-            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:20px;" href="~/Ride/Rides">All Rides</a>
-            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="">Logout</a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;margin-left:740px;padding:10px;margin-bottom:40px;" href="~/BookRide/FormARide">Form a Ride<span class="sr-only"></span></a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="~/User/Profile">Profile</a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="~/Ride/Rides">All Rides</a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="~/User/AddDrivers">Add Drivers</a>
+            <a class="nav-link" style="color: white;text-transform: uppercase;text-decoration:none;padding:10px;" href="javascript:logout()">Logout</a>
         </div>
     </nav>
 
@@ -57,6 +58,25 @@
     </footer>
 
     <script>
+
+        function logout() {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44345/api/userapi/logout",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location.href = "../Home/Main"
+                },
+                failure: function (response) {
+                    alert("Failure");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Error: " + errorThrown+ " , Please try again");
+                }
+
+            })
+        }
+
         $(document).ready(function () {
             $('#customerRides').DataTable({
                 processing: true,
@@ -87,10 +107,10 @@
                         defaultContent: ""
                     },
                     {
-                        data: "CustomerLocation.Address.City"
+                        data: "CustomerLocation.Address.Street"
                     },
                     {
-                        data: "Destination",
+                        data: "Destination.Address.Street",
                         defaultContent: ""
                     },
                     {
@@ -101,6 +121,8 @@
                     }
                 ]
             })
+
+            
         })
     </script>
 

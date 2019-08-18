@@ -150,6 +150,7 @@
     <script>
         $("#btnAcceptRide").hide()
         $('#viewComment').hide()
+        $('#leaveComment').hide()
 
         var count;
         var desc;
@@ -202,6 +203,24 @@
 
             }
         };
+
+        function logout() {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44345/api/userapi/logout",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    window.location.href = "../Home/Main"
+                },
+                failure: function (response) {
+                    alert("Failure");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Error: " + errorThrown+ " , Please try again");
+                }
+
+            })
+        }
 
         
 
@@ -381,37 +400,45 @@
 
 
 
-            $("#btnUnsuccessfulRide").on("click", function () {
+            $("#btnUnsuccessfulRide").on("click", function (e) {
 
                 console.log("are you there")
 
-                var data = {
+                e.preventDefault()
 
-                    "Comment": {
-                        "Rate": count,
-                        "Description": desc
+                $('#commentModal').modal('show');
+
+                $('#submit').on('click', function (e) {
+
+                    e.preventDefault()
+
+                    var data = {
+
+                        "Comment": {
+                            "Rate": count,
+                            "Description": desc
+                        }
+
                     }
 
-                }
+                    $.ajax({
+                        type: "PUT",
+                        url: "https://localhost:44345/api/managerideapi/rideUnsuccessful?id=" + id,
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            alert('Success')
+                            window.location.href = 'https://localhost:44345/Ride/DriverPage'
+                        },
+                        failure: function (response) {
+                            console.log("Failure");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("Error: " + errorThrown + " , Please try again");
+                        }
 
-                $.ajax({
-                    type: "PUT",
-                    url: "https://localhost:44345/api/managerideapi/rideUnsuccessful?id=" + id,
-                    data: JSON.stringify(data),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        alert('Success')
-                        window.location.href = 'https://localhost:44345/Ride/DriverPage'
-                    },
-                    failure: function (response) {
-                        console.log("Failure");
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert("Error: " + errorThrown + " , Please try again");
-                    }
-
+                    })
                 })
-
 
             })
 
