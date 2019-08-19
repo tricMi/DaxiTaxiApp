@@ -188,6 +188,7 @@
 
                     if (response.Comment != null) {
                         $('#viewComment').show()
+                        $('#submit').hide()
                         $("#btnAssignRide").hide()
                         counter = response.Comment.Rate
                         commentDesc = response.Comment.Description
@@ -198,7 +199,7 @@
                     if (response.Driver != null) {
                         var s = '<option value="' + response.Driver.Id + '">' + response.Driver.Username + '</option>';
                         driver.html(s)
-                    } else {
+                    } else if (response.Driver == null && response.RideState != 'Canceled'){
                         $("#btnAssignRide").attr("disabled", false);
                         $.ajax({
                             type: "GET",
@@ -244,23 +245,28 @@
 
                 $("#btnAssignRide").on("click", function () {
 
-                    $.ajax({
+                    if (driverId == null) {
+                        alert("Please select a driver")
+                    } else {
 
-                        type: "PUT",
-                        url: "https://localhost:44345/api/managerideapi/processRide?id=" + id + '&driverId=' + driverId,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response) {
-                            console.log("Success");
-                            window.location.href = 'https://localhost:44345/Ride/AdminPage'
-                        },
-                        failure: function (response) {
-                            console.log("Failure");
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error: " + errorThrown + " , Please try again");
-                        }
+                        $.ajax({
 
-                    })
+                            type: "PUT",
+                            url: "https://localhost:44345/api/managerideapi/processRide?id=" + id + '&driverId=' + driverId,
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                console.log("Success");
+                                window.location.href = 'https://localhost:44345/Ride/AdminPage'
+                            },
+                            failure: function (response) {
+                                console.log("Failure");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert("Error: " + errorThrown + " , Please try again");
+                            }
+
+                        })
+                    }
                 })
 
             })

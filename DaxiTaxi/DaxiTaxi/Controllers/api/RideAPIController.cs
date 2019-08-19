@@ -170,6 +170,15 @@ namespace DaxiTaxi.Controllers.api
         [Route("api/rideapi/getRide")]
         public Ride GetRide(string Id)
         {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var idUser = int.Parse(userId);
+
+            if (userUsername == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
             var id = int.Parse(Id);
             var ride = _taxiContext.Rides.Include("CustomerLocation").
                 Include("CustomerLocation.Address").Include("Customer").Include("Dispatcher").
@@ -192,27 +201,45 @@ namespace DaxiTaxi.Controllers.api
         [Route("api/rideapi/available")]
         public IEnumerable<Driver> GetAvailableDrivers(string id)
         {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var idUser = int.Parse(userId);
+
+            if(userUsername == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var user = _taxiContext.Users.Find(idUser, userUsername);
+
+            if(user.Role != ERole.ADMIN)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+
             int Id = int.Parse(id);
 
             var rides = _taxiContext.Rides.Include("CustomerLocation").SingleOrDefault(r => r.Id == Id);
 
             var availableDrivers = new List<Driver>();
 
-            if(rides.CustomerLocation != null) {
+            if(rides != null && rides.CustomerLocation != null) {
 
                 //Showing only 5 nearest available drivers based on customers location
                 availableDrivers = _taxiContext.Users.OfType<Driver>().Include("Location").
-                    Where(v => v.Role == ERole.DRIVER).
-                    Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).Take(5).
-                    OrderBy(x => Math.Pow((rides.CustomerLocation.XCoordinate - x.Location.XCoordinate), 2) +
-                    Math.Pow((rides.CustomerLocation.YCoordinate - x.Location.YCoordinate), 2)).ToList();
+                Where(v => v.Role == ERole.DRIVER).
+                Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).Take(5).
+                OrderBy(x => Math.Pow((rides.CustomerLocation.XCoordinate - x.Location.XCoordinate), 2) +
+                Math.Pow((rides.CustomerLocation.YCoordinate - x.Location.YCoordinate), 2)).ToList();
 
             }
-            else
+
+            else if(Id == 0 || rides.CustomerLocation == null)
             {
                 availableDrivers = _taxiContext.Users.OfType<Driver>().Include("Location").
-                    Where(v => v.Role == ERole.DRIVER).
-                    Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).ToList();
+                Where(v => v.Role == ERole.DRIVER).
+                Where(d => !_taxiContext.Rides.Any(r => r.Driver.Id == d.Id && r.RideState != ERideState.Successful)).ToList();
             }
    
 

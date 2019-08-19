@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/login.css">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="icon" href="data:;base64,iVBORwOKGO=" />
@@ -49,47 +50,48 @@
                 </div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="modal-body" style="color:#990000;height:450px;">
-                    <div class="md-form">
-                        <input type="text" id="username" class="form-control validate" placeholder="Username" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
-                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                    </div>
+                    <form id="simpleForm">
+                        <div class="md-form">
+                            <input type="text" id="username" class="form-control validate" placeholder="Username" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" required/>
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">
-                        <input type="text" id="name" class="form-control validate" placeholder="Name" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="md-form">
+                            <input type="text" id="name" class="form-control validate" placeholder="Name" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" required/>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">      
-                        <input type="text" id="surname" class="form-control validate" placeholder="Surname" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
-                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="md-form">
+                            <input type="text" id="surname" class="form-control validate" placeholder="Surname" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" required/>
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">
-                        <input type="text" id="email" class="form-control validate" placeholder="Email" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="md-form">
+                            <input type="text" id="email" class="form-control validate" placeholder="Email" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" required/>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">
-                        <input type="password" id="password" placeholder="Password" style=" width:300px;margin-left:35px;margin-top:15px; border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" class="form-control validate">
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="md-form">
+                            <input type="password" id="password" placeholder="Password" style=" width:300px;margin-left:35px;margin-top:15px; border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" class="form-control validate" required/>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">
-                        <input type="text" id="phoneNum" class="form-control validate" placeholder="Phone Number" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
-                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="md-form">
+                            <input type="text" id="phoneNum" class="form-control validate" placeholder="Phone Number" style="width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" required/>
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">
-                        <input type="text" id="JMBG" class="form-control validate" placeholder="JMBG" style="margin-bottom:10px;width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;">
-                        @Html.ValidationMessageFor(model => model.JMBG, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="md-form">
+                            <input type="text" id="JMBG" class="form-control validate" placeholder="JMBG" style="margin-bottom:10px;width:300px;margin-left:35px;margin-top:15px;  border: 0; outline: 0;background: transparent;border-bottom: 1px solid #990000;height:40px;" required/>
+                            @Html.ValidationMessageFor(model => model.JMBG, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="md-form">
-                        @Html.LabelFor(model => model.Gender, new { id = "enumLab", style="margin-left:35px;margin-top:10px;" })
-                        @Html.EnumDropDownListFor(model => model.Gender, new { id = "enumId" })
-                        @Html.ValidationMessageFor(m => m.Gender)
-                    </div>
-
+                        <div class="md-form">
+                            @Html.LabelFor(model => model.Gender, new { id = "enumLab", style = "margin-left:35px;margin-top:10px;" })
+                            @Html.EnumDropDownListFor(model => model.Gender, new { id = "enumId" })
+                            @Html.ValidationMessageFor(m => m.Gender)
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer d-flex justify-content-center" style="color:#990000;border-top:none;height:80px;">
                     <button class="btn btn-default" id="btnRegister" style="margin-top:unset 10px; border-radius: 0 !important;margin-right:80px;width:200px;color:white;background-color:#990000;border:none;height:40px;border-bottom:20px;">REGISTER</button>
@@ -113,47 +115,49 @@
         $(document).ready(function () {
             $("#btnRegister").on("click", function () {
 
-                var username = $("#username").val();
-                var password = $("#password").val();
-                var JMBG = $("#JMBG").val();
-                var phoneNum = $("#phoneNum").val();
-                var name = $("#name").val();
-                var surname = $("#surname").val();
-                var email = $("#email").val();
-                var gender = $("#enumId").val();
+                if ($('#simpleForm').valid()) {
+                    var username = $("#username").val();
+                    var password = $("#password").val();
+                    var JMBG = $("#JMBG").val();
+                    var phoneNum = $("#phoneNum").val();
+                    var name = $("#name").val();
+                    var surname = $("#surname").val();
+                    var email = $("#email").val();
+                    var gender = $("#enumId").val();
 
-                var data =
-                {
+                    var data =
+                    {
 
-                    "Username": username,
-                    "Password": password,
-                    "JMBG": JMBG,
-                    "PhoneNumber": phoneNum,
-                    "Name": name,
-                    "Surname": surname,
-                    "Email": email,
-                    "Gender": gender,
-                    "Role": 1
-                }
-
-
-                $.ajax({
-                    type: "POST",
-                    url: "https://localhost:44345/api/userapi/register",
-                    data: JSON.stringify(data),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        console.log('Success')
-                        window.location.href = '~/User/Login'
-                    },
-                    failure: function (response) {
-                        console.log("Failure");
-                    },
-                    error: function (response) {
-                        console.log("Error: " + " , Please try again");
+                        "Username": username,
+                        "Password": password,
+                        "JMBG": JMBG,
+                        "PhoneNumber": phoneNum,
+                        "Name": name,
+                        "Surname": surname,
+                        "Email": email,
+                        "Gender": gender,
+                        "Role": 1
                     }
 
-                })
+
+                    $.ajax({
+                        type: "POST",
+                        url: "https://localhost:44345/api/userapi/register",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            console.log('Success')
+                            window.location.href = '~/User/Login'
+                        },
+                        failure: function (response) {
+                            console.log("Failure");
+                        },
+                        error: function (response) {
+                            console.log("Error: " + " , Please try again");
+                        }
+
+                    })
+                }
             })
         })
     </script>

@@ -111,7 +111,7 @@
 
               $.ajax({  
                     type: "GET",  
-                    url: "https://localhost:44345/api/rideapi/available",  
+                    url: "https://localhost:44345/api/rideapi/available?id=" + 0,  
                     data: "{}",  
                     success: function (data) {
                         console.log(data)
@@ -184,58 +184,67 @@
  
                     }
 
-                    $("#choose").on("click", function () {
-
-                        $("#location").val(street + " " + streetNum + " " + callNum + " " + city)
-
-                                $("#btnBookRide").on("click", function () {
-
-                                    console.log("ddd " + driverId)
-
-                                    var data = {
-
-                                        "CustomerLocation":
-                                        {
-                                            "XCoordinate": lat, "YCoordinate": lon, "Address":
-                                                {
-                                                    "Street": street, "StreetNumber": streetNum,
-                                                    "City": city, "CallNumber": callNum
-                                                }
-                                        },
-                                        "Driver": { "Id": driverId }
-                                    }
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "https://localhost:44345/api/bookarideapi/formride",
-                                            data: JSON.stringify(data),
-                                            contentType: "application/json; charset=utf-8",
-                                            success: function (response) {
-                                                alert('Success')
-                                                window.location.href = 'https://localhost:44345/Ride/AdminPage'
-                                            },
-                                            failure: function (response) {
-                                                console.log("Failure");
-                                            },
-                                            error: function (jqXHR, textStatus, errorThrown) {
-                                                alert("Error: " + errorThrown + " , Please try again");
-                                            }
-
-                                        })
-                                })
-
-
-                    })
-
-                    
-                        $("#btnCancelRide").on("click", function () {
-                             window.location.href = 'https://localhost:44345/Ride/AdminPage'
-                        })
-                       
-
                 })
 
             });
+
+
+            $("#choose").on("click", function () {
+
+                $("#location").val(street + " " + streetNum + " " + callNum + " " + city)
+
+            })
+
+                    
+            $("#btnCancelRide").on("click", function () {
+                    window.location.href = '../Ride/AdminPage'
+            })
+
+             $("#btnBookRide").on("click", function (e) {
+
+                 e.preventDefault()
+
+                 console.log($('#location').val() + "Location" + driverId)
+
+                 if ($('#location').val() === "") {
+                     alert("You must select your location")
+                 } else if (driverId == null) {
+                     alert("You must select a driver")
+                 } else {
+
+
+                     var data = {
+
+                         "CustomerLocation":
+                         {
+                             "XCoordinate": lat, "YCoordinate": lon, "Address":
+                             {
+                                 "Street": street, "StreetNumber": streetNum,
+                                 "City": city, "CallNumber": callNum
+                             }
+                         },
+                         "Driver": { "Id": driverId }
+                     }
+
+                     $.ajax({
+                         type: "POST",
+                         url: "https://localhost:44345/api/bookarideapi/formride",
+                         data: JSON.stringify(data),
+                         contentType: "application/json; charset=utf-8",
+                         success: function (response) {
+                             alert('Success')
+                             window.location.href = '../Ride/AdminPage'
+                         },
+                         failure: function (response) {
+                             console.log("Failure");
+                         },
+                         error: function (jqXHR, textStatus, errorThrown) {
+                             alert("Error: " + errorThrown + " , Please try again");
+                         }
+
+                     })
+                 }
+             })
 
           });
     </script>

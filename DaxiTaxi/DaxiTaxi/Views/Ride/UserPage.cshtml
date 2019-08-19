@@ -81,6 +81,8 @@
                 ordering: true,
                 paging: true,
                 searching: true,
+                pageLength : 5,
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']],
                 ajax: {
                     url: "https://localhost:44345/api/rideapi/getCustomerRides",
                     dataSrc: ""

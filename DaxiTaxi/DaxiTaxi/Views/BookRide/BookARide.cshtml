@@ -20,7 +20,7 @@
     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/bookride.css">
-    <title>Map</title>
+    <title>Book Ride</title>
     <style>
         #map {
             position: absolute;
@@ -173,50 +173,65 @@
  
                         }
 
-                        $("#choose").on("click", function () {
-
-                            $("#currentLocation").val(street + " " + streetNum + " " + callNum + " " + city)
-
-                                 $("#btnBookRide").on("click", function () {
-
-
-                                     var data = {
-
-                                         "CustomerLocation":
-                                             {
-                                             "XCoordinate": lat, "YCoordinate": lon, "Address":
-                                                 {
-                                                     "Street": street, "StreetNumber": streetNum,
-                                                     "City": city, "CallNumber": callNum
-                                                 }
-                                             }
-                                     }
-
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "https://localhost:44345/api/bookarideapi/bookride",
-                                        data: JSON.stringify(data),
-                                        contentType: "application/json; charset=utf-8",
-                                        success: function (response) {
-                                            alert('Success')
-                                             window.location.href = "https://localhost:44345/Ride/UserPage"
-                                        },
-                                        failure: function (response) {
-                                            console.log("Failure");
-                                        },
-                                        error: function (jqXHR, textStatus, errorThrown) {
-                                            alert("Error: " + errorThrown + " , Please try again");
-                                        }
-
-                                    })
-                                 })
-
-                        })
+                       
                        
 
                     })
 
                 });
+
+                 $("#choose").on("click", function () {
+
+                     $("#currentLocation").val(street + " " + streetNum + " " + callNum + " " + city)          
+
+                 })
+
+                 $("#btnBookRide").on("click", function (e) {
+
+                     e.preventDefault();
+
+                     if ($('#currentLocation').val() === "") {
+                         alert("Please select an address")
+                     } else {
+
+                         var data = {
+
+                             "CustomerLocation":
+                             {
+                                 "XCoordinate": lat, "YCoordinate": lon, "Address":
+                                 {
+                                     "Street": street, "StreetNumber": streetNum,
+                                     "City": city, "CallNumber": callNum
+                                 }
+                             }
+                         }
+
+                         $.ajax({
+                             type: "POST",
+                             url: "https://localhost:44345/api/bookarideapi/bookride",
+                             data: JSON.stringify(data),
+                             contentType: "application/json; charset=utf-8",
+                             success: function (response) {
+                                 alert('Success')
+                                 window.location.href = "../Ride/UserPage"
+                             },
+                             failure: function (response) {
+                                 console.log("Failure");
+                             },
+                             error: function (jqXHR, textStatus, errorThrown) {
+                                 alert("Error: " + errorThrown + " , Please try again");
+                             }
+
+                         })
+                     }
+                 })
+
+                $("#btnCancelRide").on("click", function (e) {
+
+                    e.preventDefault()
+
+                    window.location.href =  "../Ride/UserPage"
+                })
 
             });
 

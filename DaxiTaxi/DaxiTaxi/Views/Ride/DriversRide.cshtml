@@ -367,18 +367,23 @@
             $("#btnSuccessfulRide").on("click", function () {
                 var am = amount.val()
 
-                var data = {
+                if ($('#destination').val() === "") {
+                    alert("Please select a destination")
+                } else if (am === "") {
+                    alert("Please enter a ride cost")
+                } else {
+                    var data = {
 
-                    "Destination":
+                        "Destination":
                         {
-                        "XCoordinate": lat, "YCoordinate": lon, "Address":
+                            "XCoordinate": lat, "YCoordinate": lon, "Address":
                             {
                                 "Street": street, "StreetNumber": streetNum,
                                 "City": city, "CallNumber": callNum
                             }
-                    },
-                    "Amount": am
-                }
+                        },
+                        "Amount": am
+                    }
 
                     $.ajax({
                         type: "PUT",
@@ -398,16 +403,15 @@
 
                     })
 
-                
+                }
             })
 
 
 
             $("#btnUnsuccessfulRide").on("click", function (e) {
 
-             //   console.log("are you there")
-
                 e.preventDefault()
+
 
                 $('#commentModal').modal('show');
 
@@ -415,40 +419,42 @@
 
                     e.preventDefault()
 
-                    var data = {
+                    if (desc === "") {
+                        alert("Please provide a comment description")
+                    } else {
+                        var data = {
 
-                        "Comment": {
-                            "Rate": count,
-                            "Description": desc
+                            "Comment": {
+                                "Rate": count,
+                                "Description": desc
+                            }
+
                         }
 
+                        $.ajax({
+                            type: "PUT",
+                            url: "https://localhost:44345/api/managerideapi/rideUnsuccessful?id=" + id,
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            success: function (response) {
+                                alert('Success')
+                                window.location.href = 'https://localhost:44345/Ride/DriverPage'
+                            },
+                            failure: function (response) {
+                                console.log("Failure");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert("Error: " + errorThrown + " , Please try again");
+                            }
+
+                        })
                     }
-
-                    $.ajax({
-                        type: "PUT",
-                        url: "https://localhost:44345/api/managerideapi/rideUnsuccessful?id=" + id,
-                        data: JSON.stringify(data),
-                        contentType: "application/json; charset=utf-8",
-                        success: function (response) {
-                            alert('Success')
-                            window.location.href = 'https://localhost:44345/Ride/DriverPage'
-                        },
-                        failure: function (response) {
-                            console.log("Failure");
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error: " + errorThrown + " , Please try again");
-                        }
-
-                    })
                 })
 
             })
 
 
             $("#btnAcceptRide").on("click", function () {
-
-                console.log("are you there")
 
               
                 $.ajax({

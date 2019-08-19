@@ -150,7 +150,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\MappingEntities.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\TaxiAppContext.cs" />
@@ -160,22 +159,8 @@
     <Compile Include="Controllers\api\UserAPIController.cs" />
     <Compile Include="Controllers\BookRideController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RideController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DTOs\AddressDTO.cs" />
-    <Compile Include="DTOs\AdminDTO.cs" />
-    <Compile Include="DTOs\CommentDTO.cs" />
-    <Compile Include="DTOs\CustomerDTO.cs" />
-    <Compile Include="DTOs\DriverDTO.cs" />
-    <Compile Include="DTOs\EGenderDTO.cs" />
-    <Compile Include="DTOs\ERideStateDTO.cs" />
-    <Compile Include="DTOs\ERoleDTO.cs" />
-    <Compile Include="DTOs\EVehicleTypeDTO.cs" />
-    <Compile Include="DTOs\LocationDTO.cs" />
-    <Compile Include="DTOs\RideDTO.cs" />
-    <Compile Include="DTOs\UserDTO.cs" />
-    <Compile Include="DTOs\VehicleDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -262,6 +247,14 @@
     <Compile Include="Migrations\201908180822555_DeleteSomeData.cs" />
     <Compile Include="Migrations\201908180822555_DeleteSomeData.Designer.cs">
       <DependentUpon>201908180822555_DeleteSomeData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908191554574_DeleteAgainSomeData.cs" />
+    <Compile Include="Migrations\201908191554574_DeleteAgainSomeData.Designer.cs">
+      <DependentUpon>201908191554574_DeleteAgainSomeData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908191557586_DeleteMoreDataAgain.cs" />
+    <Compile Include="Migrations\201908191557586_DeleteMoreDataAgain.Designer.cs">
+      <DependentUpon>201908191557586_DeleteMoreDataAgain.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
@@ -580,7 +573,6 @@
     <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\User\AddDrivers.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
-    <Content Include="Views\Location\LocationChooser.cshtml" />
     <Content Include="Views\Ride\UserPage.cshtml" />
     <Content Include="Views\Ride\AdminPage.cshtml" />
     <Content Include="Views\Ride\DriverPage.cshtml" />
@@ -671,6 +663,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908180822555_DeleteSomeData.resx">
       <DependentUpon>201908180822555_DeleteSomeData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908191554574_DeleteAgainSomeData.resx">
+      <DependentUpon>201908191554574_DeleteAgainSomeData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908191557586_DeleteMoreDataAgain.resx">
+      <DependentUpon>201908191557586_DeleteMoreDataAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

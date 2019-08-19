@@ -214,6 +214,7 @@
 
                     if (response.Comment != null) {
                         $('#viewComment').show()
+                        $('#submit').hide()
                         counter = response.Comment.Rate
                         commentDesc = response.Comment.Description
                     } else {

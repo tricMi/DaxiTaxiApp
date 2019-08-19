@@ -25,6 +25,22 @@ namespace DaxiTaxi.Controllers.api
         [Route("api/managerideapi/processRide")]
         public IHttpActionResult ProcessRide(string id, string driverId)
         {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var uId = int.Parse(userId);
+
+            if (userUsername == null || uId == 0)
+            {
+                return BadRequest();
+            }
+
+            var currentUser = _taxiContext.Users.Find(uId, userUsername);
+
+            if(currentUser.Role != ERole.ADMIN)
+            {
+                return BadRequest();
+            }
+
             int rideId = int.Parse(id);
             int driversId = int.Parse(driverId);
 
@@ -53,6 +69,11 @@ namespace DaxiTaxi.Controllers.api
             var userId = HttpContext.Current.Session["UserId"].ToString();
             var uId = int.Parse(userId);
 
+            if(userUsername == null || uId == 0)
+            {
+                return BadRequest();
+            }
+
             var currentUser = (Driver)_taxiContext.Users.Find(uId, userUsername);
 
 
@@ -76,6 +97,11 @@ namespace DaxiTaxi.Controllers.api
             var userUsername = HttpContext.Current.Session["Username"].ToString();
             var userId = HttpContext.Current.Session["UserId"].ToString();
             var uId = int.Parse(userId);
+
+            if(userUsername == null || uId == 0)
+            {
+                return BadRequest();
+            }
 
             var currentUser = (Customer)_taxiContext.Users.Find(uId, userUsername);
 
@@ -115,6 +141,23 @@ namespace DaxiTaxi.Controllers.api
         [Route("api/managerideapi/rideSuccessful")]
         public IHttpActionResult RideSuccessful([FromUri]string id, [FromBody]Ride ride)
         {
+            var userUsername = HttpContext.Current.Session["Username"].ToString();
+            var userId = HttpContext.Current.Session["UserId"].ToString();
+            var IdUser = int.Parse(userId);
+
+            if (userUsername == null || IdUser == 0)
+            {
+                return BadRequest();
+            }
+
+            var currentUser = _taxiContext.Users.Find(IdUser, userUsername);
+
+            if (currentUser.Role != ERole.DRIVER)
+            {
+                return BadRequest();
+            }
+
+            //Parse ride id
             int rideId = int.Parse(id);
 
             var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == rideId);
@@ -175,6 +218,11 @@ namespace DaxiTaxi.Controllers.api
 
             var currentUser = _taxiContext.Users.Find(Id, userUsername);
 
+            if(currentUser.Role != ERole.DRIVER)
+            {
+                return BadRequest();
+            }
+
             int rideId = int.Parse(id);
             var customersRide = _taxiContext.Rides.SingleOrDefault(r => r.Id == rideId);
 
@@ -211,6 +259,11 @@ namespace DaxiTaxi.Controllers.api
             var userUsername = HttpContext.Current.Session["Username"].ToString();
             var userId = HttpContext.Current.Session["UserId"].ToString();
             var uId = int.Parse(userId);
+
+            if(userUsername == null)
+            {
+                return BadRequest();
+            }
 
             var currentUser = _taxiContext.Users.Find(uId, userUsername);
 
